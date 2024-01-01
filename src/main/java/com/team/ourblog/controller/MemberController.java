@@ -24,14 +24,14 @@ public class MemberController {
         return ResponseEntity.ok(memberService.findMemberInfoById(SecurityUtil.getCurrentMemberId()));
     }
 
-    @GetMapping("/email/{email}")
-    public ResponseEntity<MemberResponseDto> findMemberInfoByEmail(@PathVariable String email) {
+    @GetMapping("/checkEmail")
+    public ResponseEntity<MemberResponseDto> findMemberInfoByEmail(@RequestParam String email) {
             memberService.findMemberInfoByEmail(email);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @GetMapping("/nickname/{nickname}")
-    public ResponseEntity<MemberResponseDto> findMemberInfoByNickname(@PathVariable String nickname) {
+    @GetMapping("/checkNickname")
+    public ResponseEntity<MemberResponseDto> findMemberInfoByNickname(@RequestParam String nickname) {
         memberService.findMemberInfoByNickname(nickname);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
