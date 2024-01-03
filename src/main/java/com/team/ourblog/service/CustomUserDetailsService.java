@@ -25,12 +25,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     private UserDetails createUserDetails(Member member) {
-        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(member.getRole().toString());
+        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(member.getAuthority().toString());
 
         return new User(
                 String.valueOf(member.getId()),
                 member.getPassword(),
-                Collections.singleton(new SimpleGrantedAuthority(member.getRole()))
+                Collections.singleton(grantedAuthority)
         );
     }
 }
