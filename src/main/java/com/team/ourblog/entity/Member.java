@@ -4,10 +4,8 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 
-@SuperBuilder
 @Getter
 @Entity
 @NoArgsConstructor
@@ -29,8 +27,18 @@ public class Member {
     @Column(nullable = false)
     private String name;
 
-    @Builder.Default
-    private String role = "USER";
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
+
+    @Builder
+    public Member(String email,String nickname,String name, String password, Authority authority) {
+        this.email = email;
+        this.nickname = nickname;
+        this.name = name;
+        this.password = password;
+        this.authority = authority;
+
+    }
 
 
 }

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 @Component
 public class SecurityConfig {
 

@@ -21,18 +21,17 @@ public class MemberService {
                 .map(MemberResponseDto::of)
                 .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
     }
-    public HttpStatus findMemberInfoByEmail(String email){
+    public void findMemberInfoByEmail(String email){
         if (memberRepository.findByEmail(email).isPresent()){
             throw new MemberException("이미 사용 중인 이메일입니다.", HttpStatus.BAD_REQUEST);
         }
-        return HttpStatus.OK;
     }
 
-    public  HttpStatus findMemberInfoByNickname(String nickname){
+    public  void findMemberInfoByNickname(String nickname){
         if (memberRepository.findByNickname(nickname).isPresent()){
             throw new MemberException("이미 사용 중인 닉네임입니다.", HttpStatus.BAD_REQUEST);
         }
-        return HttpStatus.OK;
+
     }
 
 }
