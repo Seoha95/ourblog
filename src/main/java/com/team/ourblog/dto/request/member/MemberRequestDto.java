@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Setter
 public class MemberRequestDto {
 
     private String email;

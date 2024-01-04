@@ -2,6 +2,8 @@ package com.team.ourblog.controller;
 
 
 import com.team.ourblog.config.SecurityUtil;
+import com.team.ourblog.dto.TokenDto;
+import com.team.ourblog.dto.request.TokenRequestDto;
 import com.team.ourblog.dto.request.member.MemberRequestDto;
 import com.team.ourblog.dto.response.member.MemberResponseDto;
 import com.team.ourblog.service.AuthService;
@@ -19,11 +21,6 @@ public class MemberController {
     private final AuthService authService;
     private final MemberService memberService;
 
-    @GetMapping("/me")
-    public ResponseEntity<MemberResponseDto> findMemberInfoById() {
-        return ResponseEntity.ok(memberService.findMemberInfoById(SecurityUtil.getCurrentMemberId()));
-    }
-
     @GetMapping("/checkEmail")
     public ResponseEntity<MemberResponseDto> findMemberInfoByEmail(@RequestParam String email) {
             memberService.findMemberInfoByEmail(email);
@@ -40,6 +37,16 @@ public class MemberController {
     public ResponseEntity<MemberResponseDto> join(@RequestBody MemberRequestDto requestDto) {
         return ResponseEntity.ok(authService.join(requestDto));
         }
+
+    @PostMapping("/login")
+    public ResponseEntity<TokenDto> login(@RequestBody MemberRequestDto requestDto){
+        return ResponseEntity.ok(authService.login(requestDto));
+    }
+    @PostMapping("/reissue")
+    public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
+        return ResponseEntity.ok(authService.reissue(tokenRequestDto));
+    }
+
     }
 
 

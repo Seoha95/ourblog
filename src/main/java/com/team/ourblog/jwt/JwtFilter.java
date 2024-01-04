@@ -14,18 +14,13 @@ import java.io.IOException;
 
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
+    //JWT 토큰을 담은 HTTP 요청 헤더 이름
     public static final String AUTHORIZATION_HEADER = "Authorization";
+    //해더의 접두사
     public static final String BEARER_PREFIX = "Bearer ";
     private final TokenProvider tokenProvider;
 
-    //Request Header 에서 토큰 정보를 꺼내오기
-    private String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
-            return bearerToken.substring(7);
-        }
-        return null;
-    }
+
     //실제 필터링 로직은 doFilterInternal 에 들어감
     //JWT 토큰의 인증 정보를 현재 쓰레드의 SecurityContext 에 저장하는 역할 수행
     @Override
@@ -41,5 +36,13 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
+    }
+    //Request Header 에서 토큰 정보를 꺼내오기
+    private String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
+            return bearerToken.split(" ")[1].trim();
+        }
+        return null;
     }
 }
