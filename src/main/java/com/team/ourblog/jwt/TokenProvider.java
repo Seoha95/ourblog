@@ -25,6 +25,7 @@ public class TokenProvider {
 
     //토큰 만료 시간
     private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30; //30분
+    private static  final long  REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;
     private final Key key;
 
     public TokenProvider(@Value("${jwt.secret}") String secretKey) {
@@ -51,10 +52,17 @@ public class TokenProvider {
                 .signWith(key, SignatureAlgorithm.HS512) // header "alg": "HS512"
                 .compact();
 
+        // Refresh Token 생성
+        String refreshToken = Jwts.builder()
+                .setExpiration(new Date(now + REFRESH_TOKEN_EXPIRE_TIME))
+                .signWith(key, SignatureAlgorithm.HS512)
+                .compact();
+
         return TokenDto.builder()
                 .grantType(BEARER_TYPE)
                 .accessToken(accessToken)
                 .tokenExpiresIn(tokenExpiresIn.getTime())
+                .refreshToken(refreshToken)
                 .build();
     }
 
