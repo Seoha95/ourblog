@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
 @Getter
 @Entity
 @NoArgsConstructor
@@ -31,7 +30,8 @@ public class Member {
     private Authority authority;
 
     @Builder
-    public Member(String email,String nickname,String name, String password, Authority authority) {
+    public Member(Long id,String email,String nickname,String name, String password, Authority authority) {
+        this.id = id;
         this.email = email;
         this.nickname = nickname;
         this.name = name;
