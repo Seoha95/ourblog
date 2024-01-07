@@ -1,14 +1,11 @@
 package com.team.ourblog.controller;
 
-
-import com.team.ourblog.config.SecurityUtil;
 import com.team.ourblog.dto.TokenDto;
 import com.team.ourblog.dto.request.TokenRequestDto;
 import com.team.ourblog.dto.request.member.MemberRequestDto;
 import com.team.ourblog.dto.response.member.MemberResponseDto;
 import com.team.ourblog.service.AuthService;
 import com.team.ourblog.service.MemberService;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,10 +13,8 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.web.servlet.function.RequestPredicates.path;
-
 @RestController
-@RequestMapping("/api/member")
+@RequestMapping("/member")
 @RequiredArgsConstructor
 public class MemberController {
 

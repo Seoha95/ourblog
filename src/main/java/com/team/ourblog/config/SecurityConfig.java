@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
                                 .requestMatchers("/", "/**").permitAll()
-                                .requestMatchers("/api/member/**").permitAll()
+                                .requestMatchers("/member/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 // exception handling 할 때 만든 클래스를 추가 

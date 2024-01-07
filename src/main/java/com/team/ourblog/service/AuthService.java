@@ -54,6 +54,8 @@ public class AuthService {
                 .value(tokenDto.getRefreshToken())
                 .build();
 
+        refreshTokenRepository.save(refreshToken);
+
         return tokenDto;
 
     }
