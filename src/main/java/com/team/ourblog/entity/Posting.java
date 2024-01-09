@@ -1,13 +1,14 @@
 package com.team.ourblog.entity;
 
 
+import com.team.ourblog.dto.request.posting.PostingRequestDto;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.ErrorResponse;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,12 +17,15 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Blog {
+public class Posting {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "POST_ID")
     private Long id;
+
+    @Column(nullable = false)
+    private String nickName;
 
     @Column(nullable = false)
     private String title;
@@ -32,36 +36,34 @@ public class Blog {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createDate;
 
-    @Column(name = "like_cnt")
+
     private Long likeCnt;
+
+    @Column
+    private String filePath;
+
+    @Column
+    private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @OneToMany(mappedBy = "blog", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<FileEntity> files = new ArrayList<>();
-
     @Builder
-    public Blog(Long id, String title, String content, Date createDate, Member member, List<FileEntity> files, Long likeCnt) {
+    public Posting(Long id, String title, String content,Long likeCnt, String filePath, String imageUrl, Member member){
         this.id = id;
         this.title = title;
         this.content = content;
-        this.createDate = createDate;
-        this.member = member;
-        this.files = files;
         this.likeCnt = likeCnt;
+        this.filePath = filePath;
+        this.imageUrl = imageUrl;
+        this.member = member;
+
     }
-    // Member & Blog 연관관계 편의 메소드
+    //== Member & Board 연관관계 편의 메소드 ==//
     public void setMappingMember(Member member) {
         this.member = member;
-        member.getBlogList().add(this);
+        member.getPostings().add(this);
     }
 
-    // FileEntity & Blog 연관관계 편의 메소드
-    public void setMappingFiles(List<FileEntity> files) {
-        if (files != null && !files.isEmpty()) {
-            this.files.addAll(files);
-        }
-    }
 }

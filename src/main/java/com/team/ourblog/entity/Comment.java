@@ -18,7 +18,7 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "POST_ID")
-    private Blog blog;
+    private Posting blog;
 
 
 
