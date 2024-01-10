@@ -2,6 +2,7 @@ package com.team.ourblog.service;
 
 import com.team.ourblog.common.ResourceNotFoundException;
 import com.team.ourblog.dto.request.posting.PostingRequestDto;
+import com.team.ourblog.dto.request.posting.PostingUpdateDto;
 import com.team.ourblog.dto.response.posting.DetailResponseDto;
 import com.team.ourblog.dto.response.posting.PostingResponseDto;
 import com.team.ourblog.dto.response.posting.PostingListResponseDto;
@@ -23,7 +24,7 @@ public class PostingService {
     private final PostingRepository postingRepository;
     private final MemberRepository memberRepository;
 
-
+    // 게시물 전체 목록보기
     public List<PostingListResponseDto> getPostingList(){
         List<Posting> postingList = postingRepository.findAllByOrderByCreateDateDesc();
         return postingList.stream()
@@ -31,6 +32,7 @@ public class PostingService {
                 .collect(Collectors.toList());
     }
 
+    // 게시물 작성하기
     public PostingResponseDto createPosting(PostingRequestDto requestDto, Member member){
 
         Posting posting = PostingRequestDto.ofEntity(requestDto);
@@ -40,15 +42,23 @@ public class PostingService {
         posting.setMappingMember(nickName);
         Posting savePosting =  postingRepository.save(posting);
 
-
         return PostingResponseDto.fromEntity(savePosting, member.getUsername());
     }
 
+    // 게시물 상세보기
     public DetailResponseDto getPostingDetail(Long postId) {
         Posting postingDetail = postingRepository.findByIdWithMemberAndComment(postId).orElseThrow(
                 () -> new ResourceNotFoundException("Posting", "Post Id",String.valueOf(postId))
         );
         return DetailResponseDto.fromEntity(postingDetail);
 
+    }
+    // 게시물 수정
+    public DetailResponseDto update(Long postId, PostingUpdateDto requestDto) {
+        Posting updatePosting = postingRepository.findByIdWithMemberAndComment(postId).orElseThrow(
+                () -> new ResourceNotFoundException("Posting", "Post Id",String.valueOf(postId))
+        );
+        updatePosting.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getFilePath(), requestDto.getImageUrl());
+        return DetailResponseDto.fromEntity(updatePosting);
     }
 }

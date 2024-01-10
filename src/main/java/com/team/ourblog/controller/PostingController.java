@@ -1,6 +1,7 @@
 package com.team.ourblog.controller;
 
 import com.team.ourblog.dto.request.posting.PostingRequestDto;
+import com.team.ourblog.dto.request.posting.PostingUpdateDto;
 import com.team.ourblog.dto.response.ResponseMsgDto;
 import com.team.ourblog.dto.response.posting.DetailResponseDto;
 import com.team.ourblog.dto.response.posting.PostingResponseDto;
@@ -83,6 +84,16 @@ public class PostingController {
 
         return ResponseEntity.status(HttpStatus.OK).body(postingDetail);
     }
+
+    // 게시물 수정
+    @PutMapping("/{postId}")
+    public ResponseEntity<DetailResponseDto> updatePosting(@PathVariable Long postId, @RequestBody PostingUpdateDto requestDto){
+
+        DetailResponseDto updateDto = postingService.update(postId, requestDto);
+
+        return ResponseEntity.status(HttpStatus.OK).body(updateDto);
+    }
+
 
 }
 

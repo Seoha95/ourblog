@@ -66,4 +66,11 @@ public class Posting {
         member.getPostings().add(this);
     }
 
+    // 게시물 수정
+    public void update(String title, String content, String filePath, String imageUrl) {
+        this.title = title;
+        this.content = content;
+        this.filePath = filePath;
+        this.imageUrl = imageUrl;
+    }
 }
