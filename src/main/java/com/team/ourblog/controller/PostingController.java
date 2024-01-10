@@ -2,13 +2,13 @@ package com.team.ourblog.controller;
 
 import com.team.ourblog.dto.request.posting.PostingRequestDto;
 import com.team.ourblog.dto.response.ResponseMsgDto;
+import com.team.ourblog.dto.response.posting.DetailResponseDto;
 import com.team.ourblog.dto.response.posting.PostingResponseDto;
 import com.team.ourblog.dto.response.posting.PostingListResponseDto;
 import com.team.ourblog.entity.Member;
 import com.team.ourblog.service.PostingService;
 import com.team.ourblog.util.MD5Generator;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.util.List;
 
-@Slf4j
+
 @RequestMapping("/posting")
 @RequiredArgsConstructor
 public class PostingController {
@@ -25,12 +25,14 @@ public class PostingController {
     private final PostingService postingService;
     private final String commonPath = "\\images";
 
+    // 게시물 전체 목록 보기 (로그인 안 한 상태의 메인페이지)
     @GetMapping("/list")
     public ResponseEntity<List<PostingListResponseDto>> getPostingList(){
         List<PostingListResponseDto> postingList = postingService.getPostingList();
         return new ResponseEntity<>(postingList, HttpStatus.OK);
     }
 
+    // 게시물 작성
     @PostMapping("/create")
     public ResponseEntity<?> createPosting(
             @RequestParam(value = "file", required = false) MultipartFile files,
@@ -72,6 +74,14 @@ public class PostingController {
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMsg);
         }
 
+    }
+
+    // 게시물 상세보기
+    @GetMapping("/{postId}")
+    public ResponseEntity<DetailResponseDto> getPostingDetail(@PathVariable Long postId){
+        DetailResponseDto postingDetail = postingService.getPostingDetail(postId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(postingDetail);
     }
 
 }

@@ -2,6 +2,7 @@ package com.team.ourblog.service;
 
 import com.team.ourblog.common.ResourceNotFoundException;
 import com.team.ourblog.dto.request.posting.PostingRequestDto;
+import com.team.ourblog.dto.response.posting.DetailResponseDto;
 import com.team.ourblog.dto.response.posting.PostingResponseDto;
 import com.team.ourblog.dto.response.posting.PostingListResponseDto;
 import com.team.ourblog.entity.Member;
@@ -30,7 +31,6 @@ public class PostingService {
                 .collect(Collectors.toList());
     }
 
-
     public PostingResponseDto createPosting(PostingRequestDto requestDto, Member member){
 
         Posting posting = PostingRequestDto.ofEntity(requestDto);
@@ -44,4 +44,11 @@ public class PostingService {
         return PostingResponseDto.fromEntity(savePosting, member.getUsername());
     }
 
+    public DetailResponseDto getPostingDetail(Long postId) {
+        Posting postingDetail = postingRepository.findByIdWithMemberAndComment(postId).orElseThrow(
+                () -> new ResourceNotFoundException("Posting", "Post Id",String.valueOf(postId))
+        );
+        return DetailResponseDto.fromEntity(postingDetail);
+
+    }
 }
