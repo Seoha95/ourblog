@@ -94,6 +94,12 @@ public class PostingController {
         return ResponseEntity.status(HttpStatus.OK).body(updateDto);
     }
 
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<Long> deletePosting(@PathVariable Long postId){
+        postingService.delete(postId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+
+    }
 
 }
 

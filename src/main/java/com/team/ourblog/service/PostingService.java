@@ -61,4 +61,9 @@ public class PostingService {
         updatePosting.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getFilePath(), requestDto.getImageUrl());
         return DetailResponseDto.fromEntity(updatePosting);
     }
+
+    // 게시물 삭제
+    public void delete(Long postId) {
+        postingRepository.deleteById(postId);
+    }
 }
