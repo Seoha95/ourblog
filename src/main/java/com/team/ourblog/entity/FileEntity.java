@@ -14,18 +14,18 @@ public class FileEntity {
     @Column(name = "FILE_ID")
     private Long id;
 
-    @Column(name = "ORIGIN_FILE_NAME")
+    @Column(nullable = false)
     private String originFileName;
 
-    @Column(name = "FILE_TYPE")
-    private String fileType;
+    @Column(nullable = false)
+    private String filename;
 
-    @Column(name = "FILE_PATH")
+    @Column(nullable = false)
     private String filePath;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "POST_ID")
-    private Posting blog;
+    private Posting posting;
 
 
 

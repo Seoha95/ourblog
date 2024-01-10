@@ -3,6 +3,7 @@ package com.team.ourblog.controller;
 import com.team.ourblog.dto.request.posting.PostingRequestDto;
 import com.team.ourblog.dto.response.ResponseMsgDto;
 import com.team.ourblog.dto.response.posting.PostingResponseDto;
+import com.team.ourblog.dto.response.posting.PostingListResponseDto;
 import com.team.ourblog.entity.Member;
 import com.team.ourblog.service.PostingService;
 import com.team.ourblog.util.MD5Generator;
@@ -11,12 +12,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
+import java.util.List;
+
 @Slf4j
 @RequestMapping("/posting")
 @RequiredArgsConstructor
@@ -24,6 +24,12 @@ public class PostingController {
 
     private final PostingService postingService;
     private final String commonPath = "\\images";
+
+    @GetMapping("/list")
+    public ResponseEntity<List<PostingListResponseDto>> getPostingList(){
+        List<PostingListResponseDto> postingList = postingService.getPostingList();
+        return new ResponseEntity<>(postingList, HttpStatus.OK);
+    }
 
     @PostMapping("/create")
     public ResponseEntity<?> createPosting(
@@ -71,11 +77,7 @@ public class PostingController {
 }
 
 
-//    @GetMapping("/list")
-//    public ResponseEntity<List<ResBlogListDto>> getBlogList(){
-//        List<ResBlogListDto> blogList = blogService.getBlogList();
-//        return new ResponseEntity<>(blogList, HttpStatus.OK);
-//    }
+
 
 
 
