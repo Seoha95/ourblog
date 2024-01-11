@@ -49,6 +49,9 @@ public class Posting {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+    @OneToMany(mappedBy = "Posting", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<Comment> comments = new ArrayList<>();
+
     @Builder
     public Posting(Long id, String title, String content,Long likeCnt, String filePath, String imageUrl, Member member){
         this.id = id;
@@ -73,4 +76,6 @@ public class Posting {
         this.filePath = filePath;
         this.imageUrl = imageUrl;
     }
+
+
 }

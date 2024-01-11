@@ -94,6 +94,7 @@ public class PostingController {
         return ResponseEntity.status(HttpStatus.OK).body(updateDto);
     }
 
+    // 게시물 삭제
     @DeleteMapping("/{postId}")
     public ResponseEntity<Long> deletePosting(@PathVariable Long postId){
         postingService.delete(postId);
