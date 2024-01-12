@@ -2,6 +2,7 @@ package com.team.ourblog.controller;
 
 import com.team.ourblog.dto.request.comment.CommentRequestDto;
 import com.team.ourblog.dto.response.comment.CommentResponseDto;
+import com.team.ourblog.dto.response.comment.CommentUpdateDto;
 import com.team.ourblog.entity.Member;
 import com.team.ourblog.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -37,9 +38,23 @@ public class CommentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
+    //댓글 수정
+    @PutMapping("/update/{commentId}")
+    public ResponseEntity<CommentUpdateDto> updateComment(
+            @PathVariable Long commentId,
+            @RequestBody CommentRequestDto requestDto){
+
+        CommentUpdateDto responseDto = commentService.update(commentId, requestDto);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    }
+
+
+    // 댓글 삭제
     @DeleteMapping("/delete/{commentId}")
     public ResponseEntity<Long> deleteComment(@PathVariable Long commentId){
         commentService.delete(commentId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+
 }

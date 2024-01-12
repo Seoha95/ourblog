@@ -3,6 +3,7 @@ package com.team.ourblog.service;
 import com.team.ourblog.common.ResourceNotFoundException;
 import com.team.ourblog.dto.request.comment.CommentRequestDto;
 import com.team.ourblog.dto.response.comment.CommentResponseDto;
+import com.team.ourblog.dto.response.comment.CommentUpdateDto;
 import com.team.ourblog.entity.Comment;
 import com.team.ourblog.entity.Member;
 import com.team.ourblog.entity.Posting;
@@ -54,5 +55,13 @@ public class CommentService {
 
     public void delete(Long commentId) {
         commentRepository.deleteById(commentId);
+    }
+
+    public CommentUpdateDto update(Long commentId, CommentRequestDto requestDto) {
+        Comment comment =  commentRepository.findByIdWithMemberAndPosting(commentId).orElseThrow(
+                () -> new ResourceNotFoundException("Comment", "Comment Id", String.valueOf(commentId))
+        );
+        comment.update(requestDto.getReply());
+        return CommentUpdateDto.fromEntity(comment);
     }
 }

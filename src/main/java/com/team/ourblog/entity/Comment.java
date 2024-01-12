@@ -41,6 +41,7 @@ public class Comment {
         member.getComments().add(this);
     }
 
-
-
+    public void update(String reply) {
+        this.reply = reply;
+    }
 }
