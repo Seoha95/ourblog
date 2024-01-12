@@ -51,4 +51,8 @@ public class CommentService {
         Comment saveComment = commentRepository.save(comment);
         return CommentResponseDto.fromEntity(saveComment);
     }
+
+    public void delete(Long commentId) {
+        commentRepository.deleteById(commentId);
+    }
 }

@@ -37,4 +37,9 @@ public class CommentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
+    @DeleteMapping("/delete/{commentId}")
+    public ResponseEntity<Long> deleteComment(@PathVariable Long commentId){
+        commentService.delete(commentId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }
