@@ -1,14 +1,14 @@
 package com.team.ourblog.controller;
 
+import com.team.ourblog.dto.request.comment.CommentRequestDto;
 import com.team.ourblog.dto.response.comment.CommentResponseDto;
+import com.team.ourblog.entity.Member;
 import com.team.ourblog.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +26,15 @@ public class CommentController {
         return ResponseEntity.status(HttpStatus.OK).body(commentList);
     }
 
+    // 댓글 작성
+    @PostMapping("/create/{postId}")
+    public ResponseEntity<CommentResponseDto> createComment(
+            @AuthenticationPrincipal Member member,
+            @PathVariable Long postId,
+            @RequestBody CommentRequestDto requestDto){
+
+        CommentResponseDto responseDto = commentService.create(postId, member, requestDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+    }
 
 }
