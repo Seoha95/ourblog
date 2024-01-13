@@ -49,8 +49,12 @@ public class Posting {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @OneToMany(mappedBy = "Posting", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "posting", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Comment> comments = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CATEGORY_ID")
+    private Category category;
 
     @Builder
     public Posting(Long id, String title, String content,Long likeCnt, String filePath, String imageUrl, Member member){

@@ -46,6 +46,9 @@ public class Member implements UserDetails {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> comments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Category> categories = new ArrayList<>();
+
     @Override
     public String getUsername() {
         return nickname;
@@ -61,7 +64,6 @@ public class Member implements UserDetails {
         this.authority = authority;
 
     }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();

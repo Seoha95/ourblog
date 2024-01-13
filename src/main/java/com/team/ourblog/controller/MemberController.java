@@ -3,7 +3,9 @@ package com.team.ourblog.controller;
 import com.team.ourblog.dto.TokenDto;
 import com.team.ourblog.dto.request.TokenRequestDto;
 import com.team.ourblog.dto.request.member.MemberRequestDto;
+import com.team.ourblog.dto.response.member.MemberInfoResponseDto;
 import com.team.ourblog.dto.response.member.MemberResponseDto;
+import com.team.ourblog.entity.Member;
 import com.team.ourblog.service.AuthService;
 import com.team.ourblog.service.MemberService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,18 +29,15 @@ public class MemberController {
             memberService.findMemberInfoByEmail(email);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
     @GetMapping("/checkNickname")
     public ResponseEntity<MemberResponseDto> findMemberInfoByNickname(@RequestParam String nickname) {
         memberService.findMemberInfoByNickname(nickname);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
     @PostMapping("/join")
     public ResponseEntity<MemberResponseDto> join(@RequestBody MemberRequestDto requestDto) {
         return ResponseEntity.ok(authService.join(requestDto));
         }
-
     @PostMapping("/login")
     public ResponseEntity<TokenDto> login(@RequestBody MemberRequestDto requestDto, HttpServletResponse response){
         TokenDto tokenDto = authService.login(requestDto);
@@ -54,6 +54,17 @@ public class MemberController {
 
         return ResponseEntity.ok(tokenDto);
     }
+
+    @GetMapping("/info")
+    public ResponseEntity<MemberInfoResponseDto> userInfo(
+            @AuthenticationPrincipal Member member){
+
+        MemberInfoResponseDto responseDto = memberService.getMemberInfo(member);
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    }
+
+
     @PostMapping("/reissue")
     public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
         return ResponseEntity.ok(authService.reissue(tokenRequestDto));

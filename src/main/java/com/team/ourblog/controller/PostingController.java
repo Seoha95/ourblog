@@ -44,8 +44,8 @@ public class PostingController {
         try {
             String filename = "basic.jpg";
             if (files != null) {
-                String origFillename = files.getOriginalFilename();
-                filename = new MD5Generator(origFillename).toString() + ".jpg";
+                String origFilename = files.getOriginalFilename();
+                filename = new MD5Generator(origFilename).toString() + ".jpg";
 
                 /* 실행되는 위치의 'files' 폴더에 파일이 저장됩니다.*/
                 String savePath = System.getProperty("user.dir") + commonPath;

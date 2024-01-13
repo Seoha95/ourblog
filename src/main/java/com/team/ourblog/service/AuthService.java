@@ -35,7 +35,12 @@ public class AuthService {
         memberService.findMemberInfoByNickname(requestDto.getNickname());
 
         Member member = requestDto.toMember(passwordEncoder);
-        return MemberResponseDto.of(memberRepository.save(member));
+        Member saveMember = memberRepository.save(member);
+
+        //회원가입 후 기본 카테고리 4개 생성
+        memberService.createDefaultCategoriesOnJoin(saveMember);
+
+        return MemberResponseDto.of(saveMember);
     }
 
     public TokenDto login(MemberRequestDto requestDto){

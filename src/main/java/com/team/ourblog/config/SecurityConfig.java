@@ -48,6 +48,7 @@ public class SecurityConfig {
                         authorizeHttpRequests
                                 .requestMatchers("/", "/**").permitAll()
                                 .requestMatchers("/member/**").permitAll()
+                                .requestMatchers("/posting/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 // exception handling 할 때 만든 클래스를 추가 

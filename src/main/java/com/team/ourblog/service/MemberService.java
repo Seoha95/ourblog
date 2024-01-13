@@ -3,12 +3,18 @@ package com.team.ourblog.service;
 
 import com.team.ourblog.common.MemberException;
 import com.team.ourblog.config.SecurityUtil;
+import com.team.ourblog.dto.response.member.MemberInfoResponseDto;
 import com.team.ourblog.dto.response.member.MemberResponseDto;
+import com.team.ourblog.entity.Category;
+import com.team.ourblog.entity.Member;
+import com.team.ourblog.repository.CategoryRepository;
 import com.team.ourblog.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final CategoryRepository categoryRepository;
 
     public MemberResponseDto findMemberInfoById() {
         return memberRepository.findById(SecurityUtil.getCurrentMemberId())
@@ -35,4 +42,21 @@ public class MemberService {
 
     }
 
+    public MemberInfoResponseDto getMemberInfo(Member member) {
+        List<Category> categories = member.getCategories();
+
+        return  MemberInfoResponseDto.fromEntity(categories, member.getNickname());
+    }
+
+    public void createDefaultCategoriesOnJoin(Member saveMember) {
+
+        for(int i = 1; i <= 4; i++ ){
+            Category category = new Category();
+            category.setMember(saveMember);
+            category.setName("카테고리");
+            categoryRepository.save(category);
+            saveMember.getCategories().add(category);
+
+        }
+    }
 }
