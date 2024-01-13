@@ -1,11 +1,8 @@
 package com.team.ourblog.dto.response.posting;
 
-import com.team.ourblog.entity.FileEntity;
 import com.team.ourblog.entity.Posting;
 import lombok.*;
-
 import java.util.Date;
-import java.util.List;
 
 @Builder
 @Getter

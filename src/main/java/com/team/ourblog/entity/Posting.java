@@ -1,14 +1,10 @@
 package com.team.ourblog.entity;
 
-
-import com.team.ourblog.dto.request.posting.PostingRequestDto;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.web.ErrorResponse;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

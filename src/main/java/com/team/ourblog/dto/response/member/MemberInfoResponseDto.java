@@ -1,7 +1,6 @@
 package com.team.ourblog.dto.response.member;
 
 import com.team.ourblog.entity.Category;
-import com.team.ourblog.entity.Member;
 import lombok.*;
 
 import java.util.List;

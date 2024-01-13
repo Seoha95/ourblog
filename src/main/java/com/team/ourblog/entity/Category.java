@@ -10,8 +10,8 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Getter
-@Setter
 @Entity
+@Setter
 public class Category {
 
     @Id
@@ -21,17 +21,11 @@ public class Category {
 
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Posting> postings = new ArrayList<>();
-
-    public void setMappingMember(Member member) {
-        this.member = member;
-        member.getCategories().add(this);
-    }
-
 
 }

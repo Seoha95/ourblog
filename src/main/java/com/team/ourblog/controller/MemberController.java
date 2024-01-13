@@ -24,20 +24,24 @@ public class MemberController {
     private final AuthService authService;
     private final MemberService memberService;
 
+    // 이메일 중복체크
     @GetMapping("/checkEmail")
     public ResponseEntity<MemberResponseDto> findMemberInfoByEmail(@RequestParam String email) {
             memberService.findMemberInfoByEmail(email);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+    // 닉네임 중복체크
     @GetMapping("/checkNickname")
     public ResponseEntity<MemberResponseDto> findMemberInfoByNickname(@RequestParam String nickname) {
         memberService.findMemberInfoByNickname(nickname);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+    // 회원가입
     @PostMapping("/join")
     public ResponseEntity<MemberResponseDto> join(@RequestBody MemberRequestDto requestDto) {
         return ResponseEntity.ok(authService.join(requestDto));
         }
+    //로그인
     @PostMapping("/login")
     public ResponseEntity<TokenDto> login(@RequestBody MemberRequestDto requestDto, HttpServletResponse response){
         TokenDto tokenDto = authService.login(requestDto);
@@ -54,7 +58,7 @@ public class MemberController {
 
         return ResponseEntity.ok(tokenDto);
     }
-
+    // 로그인 시 회원정보 보내기(닉네임과 카테고리 정보)
     @GetMapping("/info")
     public ResponseEntity<MemberInfoResponseDto> userInfo(
             @AuthenticationPrincipal Member member){
@@ -63,8 +67,7 @@ public class MemberController {
 
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
-
-
+    // 토큰 만료시 재발급
     @PostMapping("/reissue")
     public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
         return ResponseEntity.ok(authService.reissue(tokenRequestDto));

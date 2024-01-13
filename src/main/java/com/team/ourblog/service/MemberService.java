@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -49,11 +50,13 @@ public class MemberService {
     }
 
     public void createDefaultCategoriesOnJoin(Member saveMember) {
-
+        if (saveMember.getCategories() == null) {
+            saveMember.setCategories(new ArrayList<>());
+        }
         for(int i = 1; i <= 4; i++ ){
             Category category = new Category();
             category.setMember(saveMember);
-            category.setName("카테고리");
+            category.setName("카테고리" + i);
             categoryRepository.save(category);
             saveMember.getCategories().add(category);
 

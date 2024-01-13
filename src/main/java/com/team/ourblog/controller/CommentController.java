@@ -26,7 +26,6 @@ public class CommentController {
         List<CommentResponseDto> commentList = commentService.getAllComments(postId);
         return ResponseEntity.status(HttpStatus.OK).body(commentList);
     }
-
     // 댓글 작성
     @PostMapping("/create/{postId}")
     public ResponseEntity<CommentResponseDto> createComment(
@@ -37,7 +36,6 @@ public class CommentController {
         CommentResponseDto responseDto = commentService.create(postId, member, requestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
-
     //댓글 수정
     @PutMapping("/update/{commentId}")
     public ResponseEntity<CommentUpdateDto> updateComment(
@@ -47,8 +45,6 @@ public class CommentController {
         CommentUpdateDto responseDto = commentService.update(commentId, requestDto);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
-
-
     // 댓글 삭제
     @DeleteMapping("/delete/{commentId}")
     public ResponseEntity<Long> deleteComment(@PathVariable Long commentId){
