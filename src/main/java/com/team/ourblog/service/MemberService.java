@@ -34,8 +34,6 @@ public class MemberService {
         List<Category> categories = memberInfo.getCategories();
         String nickname = memberInfo.getNickname();
 
-        System.out.println(nickname);
-
         return MemberInfoResponseDto.fromEntity(categories, nickname);
 
     }

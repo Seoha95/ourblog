@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.util.List;
 
-
+@RestController
 @RequestMapping("/posting")
 @RequiredArgsConstructor
 public class PostingController {
@@ -30,7 +30,7 @@ public class PostingController {
     @GetMapping("/list")
     public ResponseEntity<List<PostingListResponseDto>> getPostingList(){
         List<PostingListResponseDto> postingList = postingService.getPostingList();
-        return new ResponseEntity<>(postingList, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(postingList);
     }
 
     // 게시물 작성
