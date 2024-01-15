@@ -5,7 +5,6 @@ import com.team.ourblog.dto.request.TokenRequestDto;
 import com.team.ourblog.dto.request.member.MemberRequestDto;
 import com.team.ourblog.dto.response.member.MemberInfoResponseDto;
 import com.team.ourblog.dto.response.member.MemberResponseDto;
-import com.team.ourblog.entity.Member;
 import com.team.ourblog.service.AuthService;
 import com.team.ourblog.service.MemberService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,7 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,28 +27,31 @@ public class MemberController {
     // 이메일 중복체크
     @GetMapping("/checkEmail")
     public ResponseEntity<MemberResponseDto> findMemberInfoByEmail(@RequestParam String email) {
-            memberService.findMemberInfoByEmail(email);
+        memberService.findMemberInfoByEmail(email);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
     // 닉네임 중복체크
     @GetMapping("/checkNickname")
     public ResponseEntity<MemberResponseDto> findMemberInfoByNickname(@RequestParam String nickname) {
         memberService.findMemberInfoByNickname(nickname);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
     // 회원가입
     @PostMapping("/join")
     public ResponseEntity<MemberResponseDto> join(@RequestBody MemberRequestDto requestDto) {
         return ResponseEntity.ok(authService.join(requestDto));
-        }
+    }
+
     //로그인
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(@RequestBody MemberRequestDto requestDto, HttpServletResponse response){
+    public ResponseEntity<TokenDto> login(@RequestBody MemberRequestDto requestDto, HttpServletResponse response) {
         TokenDto tokenDto = authService.login(requestDto);
 
         ResponseCookie refreshTokenCookie = ResponseCookie.from("refreshToken", tokenDto.getRefreshToken())
-        .maxAge(60 * 60 * 24) // 쿠키의 유효 기간을 설정 (초 단위)
-        .path("/")
+                .maxAge(60 * 60 * 24) // 쿠키의 유효 기간을 설정 (초 단위)
+                .path("/")
                 .secure(true)
                 .httpOnly(true)
                 .sameSite("None").build();
@@ -58,15 +61,14 @@ public class MemberController {
 
         return ResponseEntity.ok(tokenDto);
     }
-    // 로그인 시 회원정보 보내기(닉네임과 카테고리 정보)
+
     @GetMapping("/info")
-    public ResponseEntity<MemberInfoResponseDto> userInfo(
-            @AuthenticationPrincipal Member member){
-
-        MemberInfoResponseDto responseDto = memberService.getMemberInfo(member);
-
+    public ResponseEntity<MemberInfoResponseDto> userInfo(Authentication authentication){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        MemberInfoResponseDto responseDto = memberService.findByIdWithCategoriesAndNickname(userDetails);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
+
     // 토큰 만료시 재발급
     @PostMapping("/reissue")
     public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
