@@ -1,5 +1,6 @@
 package com.team.ourblog.controller;
 
+import com.team.ourblog.config.SecurityUtil;
 import com.team.ourblog.dto.TokenDto;
 import com.team.ourblog.dto.request.TokenRequestDto;
 import com.team.ourblog.dto.request.member.MemberRequestDto;
@@ -12,8 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -58,14 +57,13 @@ public class MemberController {
 
         // 쿠키를 HTTP 응답 헤더에 추가
         response.setHeader("set-Cookie", refreshTokenCookie.toString());
-
         return ResponseEntity.ok(tokenDto);
     }
 
     @GetMapping("/info")
-    public ResponseEntity<MemberInfoResponseDto> userInfo(Authentication authentication){
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        MemberInfoResponseDto responseDto = memberService.findByIdWithCategoriesAndNickname(userDetails);
+    public ResponseEntity<MemberInfoResponseDto> userInfo(){
+        Long memberId = SecurityUtil.getCurrentMemberId();
+        MemberInfoResponseDto responseDto = memberService.findByIdWithCategoriesAndNickname(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 

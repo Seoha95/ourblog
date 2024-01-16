@@ -76,6 +76,7 @@ public class TokenProvider {
         //토큰 복호화
         Claims claims = parseClaims(accessToken);
 
+
         if (claims.get(AUTHORITIES_KEY) == null) {
             throw new RuntimeException("권한 정보가 없는 토큰입니다.");
         }
@@ -88,7 +89,7 @@ public class TokenProvider {
         // UserDetails 객체를 만들어서 Authentication 리턴
         UserDetails userDetails = new User(claims.getSubject(), "", authorities);
 
-        return new UsernamePasswordAuthenticationToken(userDetails, "",authorities);
+        return new UsernamePasswordAuthenticationToken(userDetails.getUsername(), "",authorities);
     }
 
     //토큰 검증

@@ -10,7 +10,6 @@ import com.team.ourblog.repository.CategoryRepository;
 import com.team.ourblog.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,9 +26,9 @@ public class MemberService {
     private final CategoryRepository categoryRepository;
 
 
-    public MemberInfoResponseDto findByIdWithCategoriesAndNickname(UserDetails userDetails) {
-        Member memberInfo = memberRepository.findById(Long.valueOf(userDetails.getUsername())).orElseThrow(
-                () -> new ResourceNotFoundException("Member", "Member Id", userDetails.getUsername())
+    public MemberInfoResponseDto findByIdWithCategoriesAndNickname(Long memberId) {
+        Member memberInfo = memberRepository.findById(memberId).orElseThrow(
+                () -> new ResourceNotFoundException("Member", "Member Id", String.valueOf(memberId))
         );
         List<Category> categories = memberInfo.getCategories();
         String nickname = memberInfo.getNickname();
@@ -37,6 +36,17 @@ public class MemberService {
         return MemberInfoResponseDto.fromEntity(categories, nickname);
 
     }
+
+//    public MemberInfoResponseDto findByIdWithCategoriesAndNickname(UserDetails userDetails) {
+//        Member memberInfo = memberRepository.findById(Long.valueOf(userDetails.getUsername())).orElseThrow(
+//                () -> new ResourceNotFoundException("Member", "Member Id", userDetails.getUsername())
+//        );
+//        List<Category> categories = memberInfo.getCategories();
+//        String nickname = memberInfo.getNickname();
+//
+//        return MemberInfoResponseDto.fromEntity(categories, nickname);
+//
+//    }
 
     public void findMemberInfoByEmail(String email){
         if (memberRepository.findByEmail(email).isPresent()){
