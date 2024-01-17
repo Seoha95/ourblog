@@ -37,17 +37,6 @@ public class MemberService {
 
     }
 
-//    public MemberInfoResponseDto findByIdWithCategoriesAndNickname(UserDetails userDetails) {
-//        Member memberInfo = memberRepository.findById(Long.valueOf(userDetails.getUsername())).orElseThrow(
-//                () -> new ResourceNotFoundException("Member", "Member Id", userDetails.getUsername())
-//        );
-//        List<Category> categories = memberInfo.getCategories();
-//        String nickname = memberInfo.getNickname();
-//
-//        return MemberInfoResponseDto.fromEntity(categories, nickname);
-//
-//    }
-
     public void findMemberInfoByEmail(String email){
         if (memberRepository.findByEmail(email).isPresent()){
             throw new MemberException("이미 사용 중인 이메일입니다.", HttpStatus.BAD_REQUEST);
@@ -69,7 +58,7 @@ public class MemberService {
         for(int i = 1; i <= 4; i++ ){
             Category category = new Category();
             category.setMember(saveMember);
-            category.setName("카테고리" + i);
+            category.setCategoryName("카테고리" + i);
             categoryRepository.save(category);
             saveMember.getCategories().add(category);
 

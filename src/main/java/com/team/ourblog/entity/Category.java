@@ -20,7 +20,7 @@ public class Category {
     @Column(name = "CATEGORY_ID")
     private Long id;
 
-    private String name;
+    private String categoryName;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -30,4 +30,8 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Posting> postings = new ArrayList<>();
 
+    @Builder
+    public Category(String categoryName){
+        this.categoryName = categoryName;
+    }
 }
