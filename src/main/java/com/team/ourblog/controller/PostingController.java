@@ -4,8 +4,8 @@ import com.team.ourblog.dto.request.posting.PostingRequestDto;
 import com.team.ourblog.dto.request.posting.PostingUpdateDto;
 import com.team.ourblog.dto.response.ResponseMsgDto;
 import com.team.ourblog.dto.response.posting.DetailResponseDto;
-import com.team.ourblog.dto.response.posting.PostingResponseDto;
 import com.team.ourblog.dto.response.posting.PostingListResponseDto;
+import com.team.ourblog.dto.response.posting.PostingResponseDto;
 import com.team.ourblog.entity.Member;
 import com.team.ourblog.service.PostingService;
 import com.team.ourblog.util.MD5Generator;
@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
 import java.util.List;
 
@@ -28,8 +29,14 @@ public class PostingController {
 
     // 게시물 전체 목록 보기 (로그인 안 한 상태의 메인페이지)
     @GetMapping("/list")
-    public ResponseEntity<List<PostingListResponseDto>> getPostingList(){
-        List<PostingListResponseDto> postingList = postingService.getPostingList();
+    public ResponseEntity<List<PostingListResponseDto>> getPostingList(@RequestParam String searchText){
+        List<PostingListResponseDto> postingList;
+
+        if(searchText == null) {
+            postingList = postingService.getPostingList(); // 게시물 전체 조회
+        }else {
+            postingList = postingService.getPostingList(searchText); // 게시물 검색
+        }
         return ResponseEntity.status(HttpStatus.OK).body(postingList);
     }
 
@@ -101,6 +108,8 @@ public class PostingController {
         return ResponseEntity.status(HttpStatus.OK).build();
 
     }
+
+
 
 }
 

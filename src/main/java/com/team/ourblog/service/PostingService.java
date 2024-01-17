@@ -31,6 +31,13 @@ public class PostingService {
                 .map(PostingListResponseDto::fromEntity)
                 .collect(Collectors.toList());
     }
+    // 게시물 제목 또는 내용 또는 닉네임으로 검색하기
+    public List<PostingListResponseDto> getPostingList(String searchText){
+        List<Posting> postingList = postingRepository.findByTitleContainingOrContentContainingOrNickNameContainingOrderByCreateDateDesc(searchText);
+        return postingList.stream()
+                .map(PostingListResponseDto::fromEntity)
+                .collect(Collectors.toList());
+    }
 
     // 게시물 작성하기
     public PostingResponseDto createPosting(PostingRequestDto requestDto, Member member){
