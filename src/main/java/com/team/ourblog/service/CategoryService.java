@@ -41,4 +41,12 @@ public class CategoryService {
             updateCategory.update(requestDto.getCategoryName());
             return CategoryResponseDto.fromEntity(updateCategory);
     }
+
+    // 카테고리 삭제
+    public void deleteCategory(Long categoryId) {
+        categoryRepository.deleteById(categoryId);
+    }
+
+    // 카테고리 삭제
+
 }

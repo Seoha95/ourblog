@@ -33,4 +33,12 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.OK).body(updateDto);
     }
 
+    // 카테고리 삭제
+    @DeleteMapping("/{categoryId}")
+    public ResponseEntity<Long>  deleteCategory(@PathVariable Long categoryId){
+        categoryService.deleteCategory(categoryId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+
 }
