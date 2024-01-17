@@ -7,10 +7,7 @@ import com.team.ourblog.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/category")
@@ -26,6 +23,14 @@ public class CategoryController {
 
         CategoryResponseDto responseDto = categoryService.createCategory(requestDto, memberId);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+    }
+
+    // 카테고리 이름 수정
+    @PutMapping("/{categoryId}")
+    public ResponseEntity<CategoryResponseDto> updateCategory(@PathVariable Long categoryId, @RequestBody CategoryRequestDto requestDto){
+
+        CategoryResponseDto updateDto = categoryService.updateCategory(requestDto, categoryId);
+        return ResponseEntity.status(HttpStatus.OK).body(updateDto);
     }
 
 }

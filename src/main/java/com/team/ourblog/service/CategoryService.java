@@ -31,4 +31,14 @@ public class CategoryService {
 
         return CategoryResponseDto.fromEntity(saveCategory);
     }
+
+    // 카테고리 이름 수정
+    public CategoryResponseDto updateCategory(CategoryRequestDto requestDto, Long categoryId) {
+
+            Category updateCategory = categoryRepository.findById(categoryId).orElseThrow(
+                    () -> new ResourceNotFoundException("Category", "Category Id", String.valueOf(categoryId))
+            );
+            updateCategory.update(requestDto.getCategoryName());
+            return CategoryResponseDto.fromEntity(updateCategory);
+    }
 }

@@ -34,4 +34,9 @@ public class Category {
     public Category(String categoryName){
         this.categoryName = categoryName;
     }
+
+    // 카테고리 이름 수정
+    public void update(String categoryName) {
+        this.categoryName = categoryName;
+    }
 }
