@@ -15,6 +15,8 @@ public interface PostingRepository extends JpaRepository<Posting,Long> {
     List<Posting> findAllByOrderByCreateDateDesc();
     // 게시물 제목 또는 내용 또는 닉네임으로 검색하기
     List<Posting> findByTitleContainingOrContentContainingOrNickNameContainingOrderByCreateDateDesc(String searchText);
+    // 카테고리별로 게시물 조회
+    List<Posting> findAllByCategory_Id(Long categoryId);
 
     // 게시물 상세조회
     @Query(value = "SELECT p FROM Posting p JOIN FETCH p.member")

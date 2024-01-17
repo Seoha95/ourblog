@@ -38,6 +38,13 @@ public class PostingService {
                 .map(PostingListResponseDto::fromEntity)
                 .collect(Collectors.toList());
     }
+    // 카테고리별로 게시물 조회
+    public List<PostingListResponseDto> getPostingListCategory(Long categoryId){
+        List<Posting> postingList = postingRepository.findAllByCategory_Id(categoryId);
+        return postingList.stream()
+                .map(PostingListResponseDto::fromEntity)
+                .collect(Collectors.toList());
+    }
 
     // 게시물 작성하기
     public PostingResponseDto createPosting(PostingRequestDto requestDto, Member member){
