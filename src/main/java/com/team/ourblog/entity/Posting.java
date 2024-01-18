@@ -52,7 +52,7 @@ public class Posting {
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
-    @OneToMany(mappedBy = "Posting", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "posting", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Heart> hearts = new ArrayList<>();
 
     @Builder
