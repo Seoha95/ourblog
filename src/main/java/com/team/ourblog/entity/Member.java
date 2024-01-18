@@ -47,6 +47,9 @@ public class Member implements UserDetails {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Category> categories = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Heart> hearts = new ArrayList<>();
+
     @Override
     public String getUsername() {
         return nickname;

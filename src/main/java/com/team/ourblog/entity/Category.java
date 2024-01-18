@@ -30,10 +30,6 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Posting> postings = new ArrayList<>();
 
-    @Builder
-    public Category(String categoryName){
-        this.categoryName = categoryName;
-    }
 
     // 카테고리 이름 수정
     public void update(String categoryName) {

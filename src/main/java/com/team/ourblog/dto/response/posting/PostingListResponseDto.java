@@ -27,7 +27,7 @@ public class PostingListResponseDto {
                     .content(posting.getContent())
                     .createDate(posting.getCreateDate())
                     .writer(posting.getMember().getNickname())
-                    .likeCnt(posting.getLikeCnt())
+                    .likeCnt((long)posting.getHearts().size())
                     .build();
         }
 }

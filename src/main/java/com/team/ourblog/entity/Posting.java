@@ -33,9 +33,6 @@ public class Posting {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createDate;
 
-
-    private Long likeCnt;
-
     @Column
     private String filePath;
 
@@ -55,12 +52,15 @@ public class Posting {
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
+    @OneToMany(mappedBy = "Posting", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<Heart> hearts = new ArrayList<>();
+
     @Builder
-    public Posting(Long id, String title, String content,Long likeCnt, String filePath, String imageUrl, Member member){
+    public Posting(Long id, String title, String content,List<Heart> hearts, String filePath, String imageUrl, Member member){
         this.id = id;
         this.title = title;
         this.content = content;
-        this.likeCnt = likeCnt;
+        this.hearts = hearts;
         this.filePath = filePath;
         this.imageUrl = imageUrl;
         this.member = member;

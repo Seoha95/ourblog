@@ -29,7 +29,7 @@ public class PostingResponseDto {
                 .postId(posting.getId())
                 .title(posting.getTitle())
                 .content(posting.getContent())
-                .likeCnt(posting.getLikeCnt())
+                .likeCnt((long)posting.getHearts().size())
                 .writer(writer)
                 .filePath(posting.getFilePath())
                 .createDate(posting.getCreateDate())
