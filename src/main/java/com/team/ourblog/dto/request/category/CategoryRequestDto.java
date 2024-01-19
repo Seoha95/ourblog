@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CategoryRequestDto {
 
+
     private String categoryName;
 
     public static Category ofEntity(CategoryRequestDto requestDto) {

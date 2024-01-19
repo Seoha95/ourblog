@@ -18,7 +18,6 @@ public class MemberInfoResponseDto {
 
     public static MemberInfoResponseDto fromEntity(List<Category> categories, String nickname) {
         return MemberInfoResponseDto.builder()
-
                 .categories(categories)
                 .nickname(nickname)
                 .build();

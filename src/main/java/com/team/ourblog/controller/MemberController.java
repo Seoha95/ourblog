@@ -5,6 +5,7 @@ import com.team.ourblog.dto.TokenDto;
 import com.team.ourblog.dto.request.TokenRequestDto;
 import com.team.ourblog.dto.request.member.MemberRequestDto;
 import com.team.ourblog.dto.response.member.MemberInfoResponseDto;
+import com.team.ourblog.dto.response.member.MemberPageResponseDto;
 import com.team.ourblog.dto.response.member.MemberResponseDto;
 import com.team.ourblog.service.AuthService;
 import com.team.ourblog.service.MemberService;
@@ -59,7 +60,7 @@ public class MemberController {
         response.setHeader("set-Cookie", refreshTokenCookie.toString());
         return ResponseEntity.ok(tokenDto);
     }
-
+    // 사용자 블로그 메인페이지
     @GetMapping("/info")
     public ResponseEntity<MemberInfoResponseDto> userInfo(){
         Long memberId = SecurityUtil.getCurrentMemberId();
@@ -73,13 +74,13 @@ public class MemberController {
         return ResponseEntity.ok(authService.reissue(tokenRequestDto));
     }
 
-
-//    @GetMapping("/myPage")
-//    public ResponseEntity<MemberPageResponseDto> getMyPage(){
-//        Long memberId = SecurityUtil.getCurrentMemberId();
-//        MemberPageResponseDto responseDto = memberService.findMember(memberId);
-//
-//        }
+    // 마이페이지
+    @GetMapping("/myPage")
+    public ResponseEntity<MemberPageResponseDto> getMyPage(){
+        Long memberId = SecurityUtil.getCurrentMemberId();
+        MemberPageResponseDto responseDto = memberService.userInfo(memberId);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+        }
     }
 
 
