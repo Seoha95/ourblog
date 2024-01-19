@@ -4,15 +4,14 @@ import com.team.ourblog.dto.TokenDto;
 import com.team.ourblog.dto.request.TokenRequestDto;
 import com.team.ourblog.dto.request.member.MemberRequestDto;
 import com.team.ourblog.dto.response.member.MemberResponseDto;
+import com.team.ourblog.entity.Image;
 import com.team.ourblog.entity.Member;
-
 import com.team.ourblog.entity.RefreshToken;
 import com.team.ourblog.jwt.TokenProvider;
 import com.team.ourblog.repository.MemberRepository;
 import com.team.ourblog.repository.RefreshTokenRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -29,6 +28,7 @@ public class AuthService {
     private final MemberService memberService;
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final ImageService imageService;
 
     public MemberResponseDto join(MemberRequestDto requestDto) {
         memberService.findMemberInfoByEmail(requestDto.getEmail());
@@ -37,8 +37,11 @@ public class AuthService {
         Member member = requestDto.toMember(passwordEncoder);
         Member saveMember = memberRepository.save(member);
 
-        //회원가입 후 기본 카테고리 4개 생성
+        // 회원가입 후 기본 카테고리 4개 생성
         memberService.createDefaultCategoriesOnJoin(saveMember);
+
+        // 프로필 저장 공간 생성
+        Image image = imageService.createImageStorige("profileImages/anonymous.png", member);
 
         return MemberResponseDto.of(saveMember);
     }

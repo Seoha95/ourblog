@@ -47,7 +47,7 @@ public class SecurityConfig {
                                 .requestMatchers("/", "/**").permitAll()
                                 .requestMatchers("/member/**").permitAll()
                                 .requestMatchers("/posting/**").permitAll()
-                                .requestMatchers("/member/info").authenticated()
+                                .requestMatchers("/member/info", "/category/**").authenticated()
                                 .anyRequest().authenticated()
                 )
                 // exception handling 할 때 만든 클래스를 추가 

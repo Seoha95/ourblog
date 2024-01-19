@@ -74,7 +74,12 @@ public class MemberController {
     }
 
 
-
+//    @GetMapping("/myPage")
+//    public ResponseEntity<MemberPageResponseDto> getMyPage(){
+//        Long memberId = SecurityUtil.getCurrentMemberId();
+//        MemberPageResponseDto responseDto = memberService.findMember(memberId);
+//
+//        }
     }
 
 
