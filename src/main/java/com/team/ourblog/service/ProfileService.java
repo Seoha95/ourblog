@@ -1,10 +1,11 @@
 package com.team.ourblog.service;
 
 import com.team.ourblog.common.ResourceNotFoundException;
-import com.team.ourblog.dto.request.image.ImageRequestDto;
+import com.team.ourblog.dto.request.profile.ImageRequestDto;
+import com.team.ourblog.dto.request.profile.NicknameRequestDto;
 import com.team.ourblog.entity.Image;
 import com.team.ourblog.entity.Member;
-import com.team.ourblog.repository.ImageRepository;
+import com.team.ourblog.repository.ProfileRepository;
 import com.team.ourblog.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +20,10 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class ImageService {
+public class ProfileService {
 
 
-    private final ImageRepository imageRepository;
+    private final ProfileRepository profileRepository;
     private final MemberRepository memberRepository;
 
     @Value("${file.path}")
@@ -34,7 +35,7 @@ public class ImageService {
                 .url(imageUrl)
                 .member(member)
                 .build();
-        return imageRepository.save(image);
+        return profileRepository.save(image);
     }
     // 프로필 이미지 업데이트
     public void uploadImage(ImageRequestDto requestDto, Long memberId) {
@@ -51,13 +52,22 @@ public class ImageService {
         try{
             file.transferTo(destinationFile);
 
-            Image image = imageRepository.findByMember(member);
+            Image image = profileRepository.findByMember(member);
                 // 이미지가 이미 존재하면 url 업데이트
                 image.updateUrl("/profileImages/" + imageFileName);
 
-            imageRepository.save(image);
+            profileRepository.save(image);
         }catch (IOException e){
             throw new RuntimeException(e);
         }
+    }
+    // 닉네임 수정
+    public void updateNickname(NicknameRequestDto requestDto, Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(
+                () -> new ResourceNotFoundException("Member", "Member Id", String.valueOf(memberId))
+        );
+        String nickname = requestDto.getNickname();
+        member.updateNickname(nickname);
+        memberRepository.save(member);
     }
 }

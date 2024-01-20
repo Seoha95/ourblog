@@ -1,4 +1,4 @@
-package com.team.ourblog.dto.request.image;
+package com.team.ourblog.dto.request.profile;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -27,7 +27,7 @@ public class AuthService {
     private final MemberService memberService;
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
-    private final ImageService imageService;
+    private final ProfileService profileService;
 
     public MemberResponseDto join(MemberRequestDto requestDto) {
         memberService.findMemberInfoByEmail(requestDto.getEmail());
@@ -40,7 +40,7 @@ public class AuthService {
         memberService.createDefaultCategoriesOnJoin(saveMember);
 
         // 프로필 저장 공간 생성
-        imageService.createImageStorige("profileImages/anonymous.png", member);
+        profileService.createImageStorige("profileImages/anonymous.png", member);
 
         return MemberResponseDto.of(saveMember);
     }
