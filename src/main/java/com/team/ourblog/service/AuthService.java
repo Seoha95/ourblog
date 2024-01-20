@@ -1,5 +1,6 @@
 package com.team.ourblog.service;
 
+import com.team.ourblog.common.ResourceNotFoundException;
 import com.team.ourblog.dto.TokenDto;
 import com.team.ourblog.dto.request.TokenRequestDto;
 import com.team.ourblog.dto.request.member.MemberRequestDto;
@@ -7,7 +8,9 @@ import com.team.ourblog.dto.response.member.MemberResponseDto;
 import com.team.ourblog.entity.Member;
 import com.team.ourblog.entity.RefreshToken;
 import com.team.ourblog.jwt.TokenProvider;
+import com.team.ourblog.repository.CommentRepository;
 import com.team.ourblog.repository.MemberRepository;
+import com.team.ourblog.repository.PostingRepository;
 import com.team.ourblog.repository.RefreshTokenRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +31,8 @@ public class AuthService {
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
     private final ProfileService profileService;
+    private final PostingRepository postingRepository;
+    private final CommentRepository commentRepository;
 
     public MemberResponseDto join(MemberRequestDto requestDto) {
         memberService.findMemberInfoByEmail(requestDto.getEmail());
@@ -96,5 +101,15 @@ public class AuthService {
         return tokenDto;
     }
 
+    // 회원탈퇴
+    public void withdraw(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(
+                () -> new ResourceNotFoundException("Member", "Member Id", String.valueOf(memberId))
+        );
+        commentRepository.deleteAllByMember(member);
+        postingRepository.deleteAllByMember(member);
+        memberRepository.delete(member);
+
+    }
 
 }

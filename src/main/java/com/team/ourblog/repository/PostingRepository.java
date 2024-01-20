@@ -1,5 +1,6 @@
 package com.team.ourblog.repository;
 
+import com.team.ourblog.entity.Member;
 import com.team.ourblog.entity.Posting;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,4 +22,6 @@ public interface PostingRepository extends JpaRepository<Posting,Long> {
     // 게시물 상세조회
     @Query(value = "SELECT p FROM Posting p JOIN FETCH p.member")
     Optional<Posting> findByIdWithMemberAndComment(Long postId);
+
+    void deleteAllByMember(Member member);
 }

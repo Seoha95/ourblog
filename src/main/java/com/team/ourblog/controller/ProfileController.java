@@ -5,14 +5,12 @@ import com.team.ourblog.dto.request.profile.EmailRequestDto;
 import com.team.ourblog.dto.request.profile.ImageRequestDto;
 import com.team.ourblog.dto.request.profile.NicknameRequestDto;
 import com.team.ourblog.dto.request.profile.PassswordRequestDto;
+import com.team.ourblog.service.AuthService;
 import com.team.ourblog.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/profile")
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProfileController {
 
     final private ProfileService profileService;
+    private final AuthService authService;
 
     // 프로필 이미지 수정
     @PatchMapping("/imageUpdate")
@@ -57,5 +56,13 @@ public class ProfileController {
         profileService.updatePassword(memberId, requestDto.getCurrentPassword(), requestDto.getNewPassword());
         return ResponseEntity.status(HttpStatus.OK).body("update success");
 
+    }
+
+    // 회원탈퇴
+    @DeleteMapping("/member")
+    public ResponseEntity<String> deleteMember(){
+        Long memberId = SecurityUtil.getCurrentMemberId();
+        authService.withdraw(memberId);
+        return ResponseEntity.status(HttpStatus.OK).body("delete success");
     }
 }
