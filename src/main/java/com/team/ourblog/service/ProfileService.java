@@ -1,6 +1,7 @@
 package com.team.ourblog.service;
 
 import com.team.ourblog.common.ResourceNotFoundException;
+import com.team.ourblog.dto.request.profile.EmailRequestDto;
 import com.team.ourblog.dto.request.profile.ImageRequestDto;
 import com.team.ourblog.dto.request.profile.NicknameRequestDto;
 import com.team.ourblog.entity.Image;
@@ -30,7 +31,7 @@ public class ProfileService {
     private String uploadFolder;
 
     // 회원가입시 기본으로 프로필 생성
-    public Image createImageStorige(String imageUrl, Member member) {
+    public Image createImageStorage(String imageUrl, Member member) {
         Image image = Image.builder()
                 .url(imageUrl)
                 .member(member)
@@ -68,6 +69,16 @@ public class ProfileService {
         );
         String nickname = requestDto.getNickname();
         member.updateNickname(nickname);
+        memberRepository.save(member);
+    }
+
+    // 이메일 수정
+    public void updateEmail(EmailRequestDto requestDto, Long memberId){
+        Member member = memberRepository.findById(memberId).orElseThrow(
+                () -> new ResourceNotFoundException("Member", "Member Id", String.valueOf(memberId))
+        );
+        String email = requestDto.getEmail();
+        member.updateNickname(email);
         memberRepository.save(member);
     }
 }

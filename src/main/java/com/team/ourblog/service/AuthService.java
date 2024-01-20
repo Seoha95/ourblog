@@ -40,7 +40,7 @@ public class AuthService {
         memberService.createDefaultCategoriesOnJoin(saveMember);
 
         // 프로필 저장 공간 생성
-        profileService.createImageStorige("profileImages/anonymous.png", member);
+        profileService.createImageStorage("profileImages/anonymous.png", member);
 
         return MemberResponseDto.of(saveMember);
     }
