@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -53,6 +54,7 @@ public class Member implements UserDetails {
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Image image;
 
+
     public void updateEmail(String email){
         this.email = email;
     }
@@ -61,8 +63,10 @@ public class Member implements UserDetails {
         this.nickname = nickname;
     }
 
-    public void updatePassword(String password){
-        this.password = password;
+    public void updatePassword(String newPassword, PasswordEncoder passwordEncoder){
+
+        String encrytedPassword = passwordEncoder.encode(newPassword);
+        this.password = encrytedPassword;
     }
 
     @Override

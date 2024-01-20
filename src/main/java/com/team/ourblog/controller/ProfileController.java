@@ -4,6 +4,7 @@ import com.team.ourblog.config.SecurityUtil;
 import com.team.ourblog.dto.request.profile.EmailRequestDto;
 import com.team.ourblog.dto.request.profile.ImageRequestDto;
 import com.team.ourblog.dto.request.profile.NicknameRequestDto;
+import com.team.ourblog.dto.request.profile.PassswordRequestDto;
 import com.team.ourblog.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -49,5 +50,12 @@ public class ProfileController {
 
     }
 
+    // 비밀번호 수정
+    @PatchMapping("/passwordUpdate")
+    public ResponseEntity<String> updatePassword(@RequestBody PassswordRequestDto requestDto){
+        Long memberId = SecurityUtil.getCurrentMemberId();
+        profileService.updatePassword(memberId, requestDto.getCurrentPassword(), requestDto.getNewPassword());
+        return ResponseEntity.status(HttpStatus.OK).body("update success");
 
+    }
 }
