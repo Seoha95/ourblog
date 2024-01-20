@@ -4,7 +4,6 @@ import com.team.ourblog.dto.TokenDto;
 import com.team.ourblog.dto.request.TokenRequestDto;
 import com.team.ourblog.dto.request.member.MemberRequestDto;
 import com.team.ourblog.dto.response.member.MemberResponseDto;
-import com.team.ourblog.entity.Image;
 import com.team.ourblog.entity.Member;
 import com.team.ourblog.entity.RefreshToken;
 import com.team.ourblog.jwt.TokenProvider;
@@ -41,7 +40,7 @@ public class AuthService {
         memberService.createDefaultCategoriesOnJoin(saveMember);
 
         // 프로필 저장 공간 생성
-        Image image = imageService.createImageStorige("profileImages/anonymous.png", member);
+        imageService.createImageStorige("profileImages/anonymous.png", member);
 
         return MemberResponseDto.of(saveMember);
     }

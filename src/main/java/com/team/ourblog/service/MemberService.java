@@ -31,7 +31,8 @@ public class MemberService {
                 () -> new ResourceNotFoundException("Member", "Member Id", String.valueOf(memberId))
         );
         Image image = memberInfo.getImage();
-        return MemberPageResponseDto.fromEntity(memberInfo,image);
+        String imageUrl = image.getUrl();
+        return MemberPageResponseDto.fromEntity(memberInfo,imageUrl);
     }
 
 

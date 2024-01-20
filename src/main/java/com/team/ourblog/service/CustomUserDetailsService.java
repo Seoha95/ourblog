@@ -2,6 +2,7 @@ package com.team.ourblog.service;
 
 import com.team.ourblog.entity.Member;
 import com.team.ourblog.repository.MemberRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,9 +13,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CustomUserDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
     @Override

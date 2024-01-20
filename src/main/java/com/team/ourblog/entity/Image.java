@@ -23,4 +23,8 @@ public class Image {
     private Member member;
 
     private String url;
+
+    public void updateUrl(String url){
+        this.url = url;
+    }
 }

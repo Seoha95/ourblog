@@ -4,7 +4,6 @@ import com.team.ourblog.entity.Comment;
 import lombok.*;
 
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
