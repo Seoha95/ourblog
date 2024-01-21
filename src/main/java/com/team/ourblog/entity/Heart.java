@@ -18,9 +18,11 @@ public class Heart {
     @Column(name = "HEART_ID")
     private Long id;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "POST_ID")
     private Posting posting;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")

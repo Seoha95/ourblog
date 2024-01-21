@@ -39,14 +39,18 @@ public class Member implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
+
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Posting> postings = new ArrayList<>();
+
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> comments = new ArrayList<>();
 
+
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Category> categories = new ArrayList<>();
+
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Heart> hearts = new ArrayList<>();

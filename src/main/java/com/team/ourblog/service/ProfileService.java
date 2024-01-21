@@ -34,7 +34,9 @@ public class ProfileService {
     private String uploadFolder;
 
     // 회원가입시 기본으로 프로필 생성
-    public Image createImageStorage(String imageUrl, Member member) {
+
+    public Image createImageStorage(Member member) {
+        String imageUrl = "profileImages/anonymus.png";
         Image image = Image.builder()
                 .url(imageUrl)
                 .member(member)
@@ -81,7 +83,7 @@ public class ProfileService {
                 () -> new ResourceNotFoundException("Member", "Member Id", String.valueOf(memberId))
         );
         String email = requestDto.getEmail();
-        member.updateNickname(email);
+        member.updateEmail(email);
         memberRepository.save(member);
     }
     // 비밀번호 수정

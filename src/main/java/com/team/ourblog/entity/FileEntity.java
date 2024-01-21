@@ -23,6 +23,7 @@ public class FileEntity {
     @Column(nullable = false)
     private String filePath;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "POST_ID")
     private Posting posting;

@@ -18,6 +18,7 @@ public class Image {
     @Column(name ="IMAGE_ID")
     private Long id;
 
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
