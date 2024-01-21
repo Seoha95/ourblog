@@ -1,11 +1,13 @@
 package com.team.ourblog.service;
 
+import com.team.ourblog.dto.TokenDto;
 import com.team.ourblog.dto.request.member.MemberRequestDto;
 import com.team.ourblog.dto.response.member.MemberResponseDto;
 import com.team.ourblog.entity.Image;
 import com.team.ourblog.entity.Member;
 import com.team.ourblog.repository.MemberRepository;
 import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,15 +26,24 @@ class AuthServiceTest {
     @Autowired PasswordEncoder passwordEncoder;
     @Autowired MemberRepository memberRepository;
     @Autowired ProfileService profileService;
+    private MemberRequestDto dto;
 
-    @Test
-    void join() {
-        //given
+    private MemberRequestDto createTestMemberRequestDto(){
         MemberRequestDto dto = new MemberRequestDto();
         dto.setName("테스트");
         dto.setEmail("test2@naver.com");
         dto.setNickname("테스트야");
         dto.setPassword("dltjgk19950322@");
+        return dto;
+    }
+
+    @BeforeEach
+    void setUp(){
+        dto = createTestMemberRequestDto();
+    }
+
+    @Test
+    void join() {
         //when
         MemberResponseDto responseDto = authService.join(dto);
 
@@ -46,12 +57,6 @@ class AuthServiceTest {
     }
     @Test
     void createImageStorage(){
-        //given
-        MemberRequestDto dto = new MemberRequestDto();
-        dto.setName("테스트1");
-        dto.setEmail("test1@naver.com");
-        dto.setNickname("테스트야1");
-        dto.setPassword("dltjgk19950322@");
 
         Member member = dto.toMember(passwordEncoder);
         Member saveMember = memberRepository.save(member);
@@ -70,12 +75,6 @@ class AuthServiceTest {
 
     @Test
     void createDefaultCategoriesOnJoin(){
-        //given
-        MemberRequestDto dto = new MemberRequestDto();
-        dto.setName("테스트1");
-        dto.setEmail("test1@naver.com");
-        dto.setNickname("테스트야1");
-        dto.setPassword("dltjgk19950322@");
 
         //when
         Member member = dto.toMember(passwordEncoder);
@@ -90,7 +89,12 @@ class AuthServiceTest {
 
     @Test
     void login() {
-
+        authService.join(dto);
+        MemberRequestDto requestDto = new MemberRequestDto();
+        requestDto.setEmail(dto.getEmail());
+        requestDto.setPassword(dto.getPassword());
+        TokenDto  tokenDto = authService.login(requestDto);
+        assertThat(tokenDto.getAccessToken()).isNotNull();
     }
 
     @Test
