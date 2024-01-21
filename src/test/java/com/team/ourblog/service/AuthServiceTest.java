@@ -20,6 +20,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class AuthServiceTest {
     @Autowired AuthService authService;
     @Autowired CustomUserDetailsService customUserDetailsService;
+    @Autowired MemberService memberService;
     @Autowired PasswordEncoder passwordEncoder;
     @Autowired MemberRepository memberRepository;
     @Autowired ProfileService profileService;
@@ -64,6 +65,27 @@ class AuthServiceTest {
         assertThat(createdImage.getUrl()).isNotNull();
         assertThat(createdImage.getUrl()).startsWith("profileImages/");
         assertThat(createdImage.getUrl()).endsWith(".png");
+    }
+
+
+    @Test
+    void createDefaultCategoriesOnJoin(){
+        //given
+        MemberRequestDto dto = new MemberRequestDto();
+        dto.setName("테스트1");
+        dto.setEmail("test1@naver.com");
+        dto.setNickname("테스트야1");
+        dto.setPassword("dltjgk19950322@");
+
+        //when
+        Member member = dto.toMember(passwordEncoder);
+        Member saveMember = memberRepository.save(member);
+
+        memberService.createDefaultCategoriesOnJoin(saveMember);
+
+        assertThat(saveMember).isNotNull();
+        assertThat(saveMember.getCategories()).isNotNull();
+        assertThat(saveMember.getCategories().size()).isEqualTo(4);
     }
 
     @Test
