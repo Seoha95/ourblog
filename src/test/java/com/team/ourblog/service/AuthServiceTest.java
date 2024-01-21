@@ -2,6 +2,7 @@ package com.team.ourblog.service;
 
 import com.team.ourblog.dto.request.member.MemberRequestDto;
 import com.team.ourblog.dto.response.member.MemberResponseDto;
+import com.team.ourblog.entity.Image;
 import com.team.ourblog.entity.Member;
 import com.team.ourblog.repository.MemberRepository;
 import jakarta.transaction.Transactional;
@@ -42,7 +43,28 @@ class AuthServiceTest {
         assertThat(saveMember).isNotNull();
         assertThat(saveMember.getEmail()).isEqualTo(dto.getEmail());
     }
+    @Test
+    void createImageStorage(){
+        //given
+        MemberRequestDto dto = new MemberRequestDto();
+        dto.setName("테스트1");
+        dto.setEmail("test1@naver.com");
+        dto.setNickname("테스트야1");
+        dto.setPassword("dltjgk19950322@");
 
+        Member member = dto.toMember(passwordEncoder);
+        Member saveMember = memberRepository.save(member);
+
+        //when
+        Image createdImage = profileService.createImageStorage(saveMember);
+
+        //then
+        assertThat(saveMember).isNotNull();
+        assertThat(createdImage.getMember()).isEqualTo(saveMember);
+        assertThat(createdImage.getUrl()).isNotNull();
+        assertThat(createdImage.getUrl()).startsWith("profileImages/");
+        assertThat(createdImage.getUrl()).endsWith(".png");
+    }
 
     @Test
     void login() {
