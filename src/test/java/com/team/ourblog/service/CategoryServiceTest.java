@@ -3,6 +3,7 @@ package com.team.ourblog.service;
 import com.team.ourblog.dto.request.category.CategoryRequestDto;
 import com.team.ourblog.dto.response.category.CategoryResponseDto;
 import com.team.ourblog.entity.Authority;
+import com.team.ourblog.entity.Category;
 import com.team.ourblog.entity.Member;
 import com.team.ourblog.repository.CategoryRepository;
 import com.team.ourblog.repository.MemberRepository;
@@ -11,6 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -73,5 +76,17 @@ class CategoryServiceTest {
 
     @Test
     void deleteCategory() {
+        //given
+        CategoryRequestDto dto = new CategoryRequestDto();
+        dto.setCategoryName("테스트카테고리");
+        CategoryResponseDto responseDto =  categoryService.createCategory(dto, testMeberId);
+
+        //when
+        categoryService.deleteCategory(responseDto.getCategoryId());
+
+        //then
+        Optional<Category> deletedCategory = categoryRepository.findById(responseDto.getCategoryId());
+        assertThat(deletedCategory).isEmpty();
+
     }
 }
