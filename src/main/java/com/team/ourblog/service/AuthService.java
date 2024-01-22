@@ -8,10 +8,7 @@ import com.team.ourblog.dto.response.member.MemberResponseDto;
 import com.team.ourblog.entity.Member;
 import com.team.ourblog.entity.RefreshToken;
 import com.team.ourblog.jwt.TokenProvider;
-import com.team.ourblog.repository.CommentRepository;
-import com.team.ourblog.repository.MemberRepository;
-import com.team.ourblog.repository.PostingRepository;
-import com.team.ourblog.repository.RefreshTokenRepository;
+import com.team.ourblog.repository.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,6 +30,7 @@ public class AuthService {
     private final ProfileService profileService;
     private final PostingRepository postingRepository;
     private final CommentRepository commentRepository;
+    private final ProfileRepository profileRepository;
 
     public MemberResponseDto join(MemberRequestDto requestDto) {
         memberService.findMemberInfoByEmail(requestDto.getEmail());
@@ -108,6 +106,7 @@ public class AuthService {
         );
         commentRepository.deleteAllByMember(member);
         postingRepository.deleteAllByMember(member);
+        profileRepository.deleteAllByMember(member);
         memberRepository.delete(member);
 
     }

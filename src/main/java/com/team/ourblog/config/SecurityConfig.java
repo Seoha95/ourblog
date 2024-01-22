@@ -50,7 +50,7 @@ public class SecurityConfig {
                                 .requestMatchers("/", "/**").permitAll()
                                 .requestMatchers("/member/**").permitAll()
                                 .requestMatchers("/posting/**").permitAll()
-                                .requestMatchers("/member/info", "/category/**").authenticated()
+                                .requestMatchers("/member/info").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class)
