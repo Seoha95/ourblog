@@ -33,7 +33,7 @@ public class PostingService {
     }
 
     public List<PostingListResponseDto> getUserPostingList(Long memberId){
-        List<Posting> postingList = postingRepository.findAllByMember(memberId);
+        List<Posting> postingList = postingRepository.findAllByMember_Id(memberId);
         return postingList.stream()
                 .map(PostingListResponseDto::fromEntity)
                 .collect(Collectors.toList());

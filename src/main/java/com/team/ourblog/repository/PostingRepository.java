@@ -27,5 +27,5 @@ public interface PostingRepository extends JpaRepository<Posting,Long> {
     void deleteAllByMember(Member member);
 
     // 로그인한 사용자의 게시물 전체 조회
-    List<Posting> findAllByMember(Long memberId);
+    List<Posting> findAllByMember_Id(Long memberId);
 }
