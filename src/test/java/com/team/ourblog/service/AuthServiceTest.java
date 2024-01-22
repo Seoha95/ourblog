@@ -13,9 +13,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @SpringBootTest
@@ -126,5 +128,16 @@ class AuthServiceTest {
 
     @Test
     void withdraw() {
+
+        MemberResponseDto responseDto = authService.join(dto);
+
+        //then
+        UserDetails  userDetails = customUserDetailsService.loadUserByUsername(responseDto.getEmail());
+        Long userId = Long.parseLong(userDetails.getUsername());
+        authService.withdraw(userId);
+        assertThrows(UsernameNotFoundException.class, () -> {
+            customUserDetailsService.loadUserByUsername(dto.getEmail());
+        });
+
     }
 }
