@@ -2,6 +2,7 @@ package com.team.ourblog.config;
 
 import com.team.ourblog.jwt.JwtAccessDeniedHandler;
 import com.team.ourblog.jwt.JwtAuthenticationEntryPoint;
+import com.team.ourblog.jwt.JwtFilter;
 import com.team.ourblog.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
 
@@ -24,6 +26,7 @@ public class SecurityConfig {
     private final TokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -50,6 +53,7 @@ public class SecurityConfig {
                                 .requestMatchers("/member/info", "/category/**").authenticated()
                                 .anyRequest().authenticated()
                 )
+                .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class)
                 // exception handling 할 때 만든 클래스를 추가 
                 .exceptionHandling(excep -> excep.authenticationEntryPoint(jwtAuthenticationEntryPoint).accessDeniedHandler(jwtAccessDeniedHandler))
                 .with(new JwtSecurityConfig(tokenProvider), Customizer.withDefaults());

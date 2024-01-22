@@ -39,6 +39,7 @@ public class CategoryService {
                     () -> new ResourceNotFoundException("Category", "Category Id", String.valueOf(categoryId))
             );
             updateCategory.update(requestDto.getCategoryName());
+            categoryRepository.save(updateCategory);
             return CategoryResponseDto.fromEntity(updateCategory);
     }
 
