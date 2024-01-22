@@ -28,6 +28,14 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.OK).body(postingList);
     }
 
+    // 로그인한 회원의 게시물 전체조회
+    @GetMapping("/all")
+    public ResponseEntity<List<PostingListResponseDto>> allPostingList(){
+        Long memberId = SecurityUtil.getCurrentMemberId();
+        List<PostingListResponseDto> allPostingList = postingService.getUserPostingList(memberId);
+        return ResponseEntity.status(HttpStatus.OK).body(allPostingList);
+    }
+
     // 카테고리 만들기
     @PostMapping("/create")
     public ResponseEntity<CategoryResponseDto> createCategory(@RequestBody CategoryRequestDto requestDto){

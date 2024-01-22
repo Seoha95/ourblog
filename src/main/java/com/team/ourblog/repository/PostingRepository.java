@@ -23,5 +23,9 @@ public interface PostingRepository extends JpaRepository<Posting,Long> {
     @Query(value = "SELECT p FROM Posting p JOIN FETCH p.member")
     Optional<Posting> findByIdWithMemberAndComment(Long postId);
 
+    // 맴버의 게시물 전체 삭제
     void deleteAllByMember(Member member);
+
+    // 로그인한 사용자의 게시물 전체 조회
+    List<Posting> findAllByMember(Long memberId);
 }
