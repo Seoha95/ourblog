@@ -1,6 +1,7 @@
 package com.team.ourblog.service;
 
 import com.team.ourblog.dto.TokenDto;
+import com.team.ourblog.dto.request.TokenRequestDto;
 import com.team.ourblog.dto.request.member.MemberRequestDto;
 import com.team.ourblog.dto.response.member.MemberResponseDto;
 import com.team.ourblog.entity.Image;
@@ -26,6 +27,7 @@ class AuthServiceTest {
     @Autowired PasswordEncoder passwordEncoder;
     @Autowired MemberRepository memberRepository;
     @Autowired ProfileService profileService;
+
     private MemberRequestDto dto;
 
     private MemberRequestDto createTestMemberRequestDto(){
@@ -97,8 +99,29 @@ class AuthServiceTest {
         assertThat(tokenDto.getAccessToken()).isNotNull();
     }
 
+
+
     @Test
     void reissue() {
+        //given
+        authService.join(dto);
+        //when
+        MemberRequestDto requestDto = new MemberRequestDto();
+        requestDto.setEmail(dto.getEmail());
+        requestDto.setPassword(dto.getPassword());
+        TokenDto tokenDto = authService.login(requestDto);
+
+        TokenRequestDto tokenRequestDto = new TokenRequestDto();
+        tokenRequestDto.setAccessToken(tokenDto.getAccessToken());
+        tokenRequestDto.setRefreshToken(tokenDto.getRefreshToken());
+
+        TokenDto newToken = authService.reissue(tokenRequestDto);
+
+        //then
+        assertThat(newToken).isNotNull();
+        assertThat(newToken.getAccessToken()).isNotNull();
+        assertThat(newToken.getRefreshToken()).isNotNull();
+
     }
 
     @Test
