@@ -52,11 +52,11 @@ public class Member implements UserDetails {
     private List<Category> categories = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Heart> hearts = new ArrayList<>();
-
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Image image;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Heart> hearts = new ArrayList<>();
 
 
     public void updateEmail(String email){

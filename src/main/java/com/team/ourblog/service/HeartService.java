@@ -1,7 +1,6 @@
 package com.team.ourblog.service;
 
 import com.team.ourblog.common.ResourceNotFoundException;
-import com.team.ourblog.dto.response.Heart.HeartResponseDto;
 import com.team.ourblog.entity.Heart;
 import com.team.ourblog.entity.Member;
 import com.team.ourblog.entity.Posting;
@@ -20,21 +19,43 @@ public class HeartService {
     private final HeartRepository heartRepository;
     private final MemberRepository memberRepository;
     private final PostingRepository postingRepository;
-    public HeartResponseDto HeartPosting(Long postId, Long memberId) {
+
+
+    public Heart heartInsert(Long postId, Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(
                 () -> new ResourceNotFoundException("Member", "Member Id", String.valueOf(memberId))
         );
         Posting posting = postingRepository.findById(postId).orElseThrow(
                 () -> new ResourceNotFoundException("Posting", "Posting Id", String.valueOf(postId))
         );
-        HeartResponseDto responseDto = new HeartResponseDto();
-        if(member.getHearts().stream().anyMatch(heart -> heart.getPosting().equals(posting))){
-            heartRepository.deleteByMemberAndPosting(member,posting);
-            responseDto.setMessage("좋아요 취소");
+        // 이미 좋아요 되어 있으면 에러 반환
+
+        Heart heart = heartRepository.findByPostingIdAndMemberId(postId, memberId);
+        if(heart == null){
+            Heart newHeart = new Heart();
+            newHeart.addMember(member);
+            newHeart.addPosting(posting);
+            heartRepository.save(newHeart);
+            return newHeart;
         }else{
-            heartRepository.save(Heart.builder().posting(posting).member(member).build());
-            responseDto.setMessage("좋아요 성공");
+            return null;
         }
-        return responseDto;
+    }
+
+    public Heart heartDelete(Long postId, Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(
+                () -> new ResourceNotFoundException("Member", "Member Id", String.valueOf(memberId))
+        );
+        Posting posting = postingRepository.findById(postId).orElseThrow(
+                () -> new ResourceNotFoundException("Posting", "Posting Id", String.valueOf(postId))
+        );
+
+        Heart heart = heartRepository.findByPostingIdAndMemberId(postId, memberId);
+        if(heart == null){
+          return null;
+        }else{
+            heartRepository.deleteById(heart.getId());
+            return heart;
+        }
     }
 }

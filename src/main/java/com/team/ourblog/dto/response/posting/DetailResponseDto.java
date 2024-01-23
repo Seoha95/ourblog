@@ -20,7 +20,6 @@ public class DetailResponseDto {
     private Long postId;
     private String title;
     private String content;
-    private Long likeCnt;
     private String writer;
     private Date createDate;
     private List<CommentResponseDto> commentList;
@@ -32,7 +31,6 @@ public class DetailResponseDto {
                 .postId(posting.getId())
                 .title(posting.getTitle())
                 .content(posting.getContent())
-                .likeCnt((long)posting.getHearts().size())
                 .writer(posting.getMember().getUsername())
                 .createDate(posting.getCreateDate())
                 .build();

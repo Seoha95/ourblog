@@ -60,14 +60,15 @@ public class PostingService {
                 () -> new ResourceNotFoundException("Member", "Member Id", String.valueOf(memberId))
         );
 
-        Member nickName = memberRepository.findByNickname(memberInfo.getUsername()).orElseThrow(
+        Member writerMember = memberRepository.findByNickname(memberInfo.getNickname()).orElseThrow(
                 () -> new ResourceNotFoundException("Member", "Member nickname", memberInfo.getUsername())
         );
+
         Posting posting = PostingRequestDto.ofEntity(requestDto);
-        posting.setMappingMember(nickName);
+        posting.setMappingMember(writerMember);
         Posting savePosting =  postingRepository.save(posting);
 
-        return PostingResponseDto.fromEntity(savePosting, memberInfo.getUsername());
+        return PostingResponseDto.fromEntity(savePosting, writerMember.getUsername());
     }
 
     // 게시물 상세보기

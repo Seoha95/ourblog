@@ -28,11 +28,11 @@ public class Heart {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    public void setPosting(Posting posting){
+    public void addPosting(Posting posting){
         this.posting = posting;
         posting.getHearts().add(this);
     }
-    public void setMember(Member member){
+    public void addMember(Member member){
         this.member = member;
         member.getHearts().add(this);
     }

@@ -28,4 +28,5 @@ public interface PostingRepository extends JpaRepository<Posting,Long> {
 
     // 로그인한 사용자의 게시물 전체 조회
     List<Posting> findAllByMember_Id(Long memberId);
+
 }

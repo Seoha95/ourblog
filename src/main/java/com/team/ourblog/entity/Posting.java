@@ -39,6 +39,8 @@ public class Posting {
     @Column
     private String imageUrl;
 
+    private Long likeCount;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
@@ -47,20 +49,20 @@ public class Posting {
     @OneToMany(mappedBy = "posting", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Comment> comments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "posting", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<Heart> hearts = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
-    @OneToMany(mappedBy = "posting", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public List<Heart> hearts = new ArrayList<>();
-
     @Builder
-    public Posting(Long id, String title, String content,List<Heart> hearts, String filePath, String imageUrl, Member member){
+    public Posting(Long id, String title, String nickName, String content,Long likeCount, String filePath, String imageUrl, Member member){
         this.id = id;
         this.title = title;
         this.content = content;
-        this.hearts = hearts;
+        this.nickName = nickName;
+        this.likeCount = likeCount;
         this.filePath = filePath;
         this.imageUrl = imageUrl;
         this.member = member;
