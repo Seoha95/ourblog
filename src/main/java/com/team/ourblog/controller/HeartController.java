@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 @RestController
 @RequestMapping("/heart")
 @RequiredArgsConstructor
@@ -15,7 +17,15 @@ public class HeartController {
 
     private final HeartService heartService;
 
-    // 좋아요 기능
+    @GetMapping("/{postId}")
+    public HashMap<String, Object> getHeart(@PathVariable Long postId) {
+        Long memberId = SecurityUtil.getCurrentMemberId();
+
+        return heartService.getHeart(postId, memberId);
+    }
+
+
+    // 좋아요
     @PostMapping("/{postId}")
     public ResponseEntity<String> heartInsert(@PathVariable Long postId) {
         Long memberId = SecurityUtil.getCurrentMemberId();
@@ -25,7 +35,7 @@ public class HeartController {
         }
         return ResponseEntity.status(HttpStatus.OK).body("좋아요");
     }
-
+    // 좋아요 취소
     @DeleteMapping("/{postId}")
     public ResponseEntity<String> heartDelete(@PathVariable Long postId) {
         Long memberId = SecurityUtil.getCurrentMemberId();
