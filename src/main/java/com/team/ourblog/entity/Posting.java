@@ -39,8 +39,6 @@ public class Posting {
     @Column
     private String imageUrl;
 
-    private Long likeCount;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
