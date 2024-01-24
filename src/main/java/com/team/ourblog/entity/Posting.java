@@ -33,8 +33,7 @@ public class Posting {
     private String content;
 
     @CreatedDate
-    private String createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
-
+    private String createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss"));
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
@@ -71,6 +70,4 @@ public class Posting {
         this.content = content;
 
     }
-
-
 }
