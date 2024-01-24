@@ -56,19 +56,15 @@ public class PostingService {
     // 게시물 작성하기
     public PostingResponseDto createPosting(PostingRequestDto requestDto, Long memberId){
 
-        Member memberInfo = memberRepository.findById(memberId).orElseThrow(
+        Member member = memberRepository.findById(memberId).orElseThrow(
                 () -> new ResourceNotFoundException("Member", "Member Id", String.valueOf(memberId))
         );
 
-        Member writerMember = memberRepository.findByNickname(memberInfo.getNickname()).orElseThrow(
-                () -> new ResourceNotFoundException("Member", "Member nickname", memberInfo.getUsername())
-        );
-
         Posting posting = PostingRequestDto.ofEntity(requestDto);
-        posting.setMappingMember(writerMember);
+        posting.setMappingMember(member);
         Posting savePosting =  postingRepository.save(posting);
 
-        return PostingResponseDto.fromEntity(savePosting, writerMember.getUsername());
+        return PostingResponseDto.fromEntity(savePosting);
     }
 
     // 게시물 상세보기

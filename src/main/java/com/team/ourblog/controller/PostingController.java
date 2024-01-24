@@ -20,7 +20,7 @@ import java.util.List;
 public class PostingController {
 
     private final PostingService postingService;
-    private final String commonPath = "\\images";
+
 
     // 게시물 전체 목록 보기 (로그인 안 한 상태의 메인페이지)
     @GetMapping("/list")

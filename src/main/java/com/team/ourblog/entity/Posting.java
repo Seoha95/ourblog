@@ -57,12 +57,11 @@ public class Posting {
     private Category category;
 
     @Builder
-    public Posting(Long id, String title, String nickName, String content,Long likeCount, String filePath, String imageUrl, Member member){
+    public Posting(Long id, String title, String nickName, String content,String filePath, String imageUrl, Member member){
         this.id = id;
         this.title = title;
         this.content = content;
         this.nickName = nickName;
-        this.likeCount = likeCount;
         this.filePath = filePath;
         this.imageUrl = imageUrl;
         this.member = member;

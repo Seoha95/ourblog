@@ -23,12 +23,12 @@ public class PostingResponseDto {
 
 
     // Entity -> DTO
-    public static PostingResponseDto fromEntity(Posting posting, String writer) {
+    public static PostingResponseDto fromEntity(Posting posting) {
         return PostingResponseDto.builder()
                 .postId(posting.getId())
                 .title(posting.getTitle())
                 .content(posting.getContent())
-                .writer(writer)
+                .writer(posting.getNickName())
                 .filePath(posting.getFilePath())
                 .createDate(posting.getCreateDate())
                 .build();

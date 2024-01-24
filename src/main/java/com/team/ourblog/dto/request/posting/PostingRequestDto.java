@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostingRequestDto {
+    private String nickName;
     private String title;
     private String content;
     private String filePath;
@@ -16,6 +17,7 @@ public class PostingRequestDto {
     @Builder
     public static Posting ofEntity(PostingRequestDto requestDto) {
         return Posting.builder()
+                .nickName(requestDto.nickName)
                 .title(requestDto.title)
                 .content(requestDto.content)
                 .filePath(requestDto.filePath)
