@@ -32,7 +32,6 @@ public class Posting {
 
     private LocalDateTime createdDate = LocalDateTime.now();
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
