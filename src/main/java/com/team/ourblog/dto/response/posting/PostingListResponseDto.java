@@ -3,7 +3,7 @@ package com.team.ourblog.dto.response.posting;
 import com.team.ourblog.entity.Posting;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Builder
 @Getter
@@ -15,7 +15,7 @@ public class PostingListResponseDto {
     private Long id;
     private String title;
     private String content;
-    private Date createDate;
+    private LocalDateTime createdDate;
     private String writer;
 
 
@@ -26,7 +26,7 @@ public class PostingListResponseDto {
                     .id(posting.getId())
                     .title(posting.getTitle())
                     .content(posting.getContent())
-                    .createDate(posting.getCreateDate())
+                    .createdDate(posting.getCreatedDate())
                     .writer(posting.getMember().getNickname())
                     .build();
         }

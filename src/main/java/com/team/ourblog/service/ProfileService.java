@@ -11,14 +11,8 @@ import com.team.ourblog.repository.MemberRepository;
 import com.team.ourblog.repository.ProfileRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -30,8 +24,6 @@ public class ProfileService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Value("${file.path}")
-    private String uploadFolder;
 
     // 회원가입시 기본으로 프로필 생성
 
@@ -48,24 +40,24 @@ public class ProfileService {
         Member member = memberRepository.findById(memberId).orElseThrow(
                 () -> new ResourceNotFoundException("Member", "Member Id", String.valueOf(memberId))
         );
-        MultipartFile file = requestDto.getFile();
-
-        UUID uuid = UUID.randomUUID();
-        String imageFileName = uuid + "_" + file.getOriginalFilename();
-
-        File destinationFile = new File(uploadFolder + imageFileName);
-
-        try{
-            file.transferTo(destinationFile);
-
-            Image image = profileRepository.findByMember(member);
-                // 이미지가 이미 존재하면 url 업데이트
-                image.updateUrl("/profileImages/" + imageFileName);
-
-            profileRepository.save(image);
-        }catch (IOException e){
-            throw new RuntimeException(e);
-        }
+//        MultipartFile file = requestDto.getFile();
+//
+//        UUID uuid = UUID.randomUUID();
+//        String imageFileName = uuid + "_" + file.getOriginalFilename();
+//
+//        File destinationFile = new File(uploadFolder + imageFileName);
+//
+//        try{
+//            file.transferTo(destinationFile);
+//
+//            Image image = profileRepository.findByMember(member);
+//                // 이미지가 이미 존재하면 url 업데이트
+//                image.updateUrl("/profileImages/" + imageFileName);
+//
+//            profileRepository.save(image);
+//        }catch (IOException e){
+//            throw new RuntimeException(e);
+//        }
     }
     // 닉네임 수정
     public void updateNickname(NicknameRequestDto requestDto, Long memberId) {

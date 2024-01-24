@@ -80,7 +80,7 @@ public class PostingService {
         Posting updatePosting = postingRepository.findByIdWithMemberAndComment(postId).orElseThrow(
                 () -> new ResourceNotFoundException("Posting", "Post Id",String.valueOf(postId))
         );
-        updatePosting.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getFilePath(), requestDto.getImageUrl());
+        updatePosting.update(requestDto.getTitle(), requestDto.getContent());
         return DetailResponseDto.fromEntity(updatePosting);
     }
 

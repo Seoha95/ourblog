@@ -8,7 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -21,7 +21,7 @@ public class DetailResponseDto {
     private String title;
     private String content;
     private String writer;
-    private Date createDate;
+    private LocalDateTime createdDate;
     private List<CommentResponseDto> commentList;
 
 
@@ -32,7 +32,7 @@ public class DetailResponseDto {
                 .title(posting.getTitle())
                 .content(posting.getContent())
                 .writer(posting.getMember().getUsername())
-                .createDate(posting.getCreateDate())
+                .createdDate(posting.getCreatedDate())
                 .build();
     }
 

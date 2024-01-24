@@ -24,7 +24,6 @@ public class Comment {
 
     private Date createDate;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "POST_ID")
     private Posting posting;

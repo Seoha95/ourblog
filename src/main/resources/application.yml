@@ -13,9 +13,6 @@ spring:
       hibernate:
         format_sql: true
 
-file:
-  path: D:/profileImage/
-
 
 server:
   port: 8081

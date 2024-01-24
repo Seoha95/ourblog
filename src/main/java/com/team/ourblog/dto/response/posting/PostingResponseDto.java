@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Builder
 @AllArgsConstructor
@@ -17,9 +17,7 @@ public class PostingResponseDto {
     private String title;
     private String content;
     private String writer;
-    private String filePath;
-    private String imageUrl;
-    private Date createDate;
+    private LocalDateTime createdDate;
 
 
     // Entity -> DTO
@@ -29,8 +27,7 @@ public class PostingResponseDto {
                 .title(posting.getTitle())
                 .content(posting.getContent())
                 .writer(posting.getNickName())
-                .filePath(posting.getFilePath())
-                .createDate(posting.getCreateDate())
+                .createdDate(posting.getCreatedDate())
                 .build();
     }
 }

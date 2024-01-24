@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -30,14 +30,7 @@ public class Posting {
     @Column(nullable = false)
     private String content;
 
-    @Temporal(value = TemporalType.TIMESTAMP)
-    private Date createDate;
-
-    @Column
-    private String filePath;
-
-    @Column
-    private String imageUrl;
+    private LocalDateTime createdDate = LocalDateTime.now();
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -55,13 +48,11 @@ public class Posting {
     private Category category;
 
     @Builder
-    public Posting(Long id, String title, String nickName, String content,String filePath, String imageUrl, Member member){
+    public Posting(Long id, String title, String nickName, String content, Member member){
         this.id = id;
         this.title = title;
         this.content = content;
         this.nickName = nickName;
-        this.filePath = filePath;
-        this.imageUrl = imageUrl;
         this.member = member;
 
     }
@@ -72,11 +63,10 @@ public class Posting {
     }
 
     // 게시물 수정
-    public void update(String title, String content, String filePath, String imageUrl) {
+    public void update(String title, String content) {
         this.title = title;
         this.content = content;
-        this.filePath = filePath;
-        this.imageUrl = imageUrl;
+
     }
 
 

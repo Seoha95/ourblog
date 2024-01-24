@@ -27,10 +27,8 @@ public class Category {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Posting> postings = new ArrayList<>();
-
 
     // 카테고리 이름 수정
     public void update(String categoryName) {

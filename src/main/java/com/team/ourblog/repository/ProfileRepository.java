@@ -9,8 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface ProfileRepository extends JpaRepository<Image,Long> {
 
     Image findByMember(Member member);
-
-
-
     void deleteAllByMember(Member member);
 }
