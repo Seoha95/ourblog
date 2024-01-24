@@ -8,7 +8,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -21,7 +20,7 @@ public class DetailResponseDto {
     private String title;
     private String content;
     private String writer;
-    private LocalDateTime createdDate;
+    private String createdDate;
     private List<CommentResponseDto> commentList;
 
 

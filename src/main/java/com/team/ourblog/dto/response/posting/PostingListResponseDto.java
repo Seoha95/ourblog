@@ -3,8 +3,6 @@ package com.team.ourblog.dto.response.posting;
 import com.team.ourblog.entity.Posting;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Builder
 @Getter
 @Setter
@@ -15,7 +13,7 @@ public class PostingListResponseDto {
     private Long id;
     private String title;
     private String content;
-    private LocalDateTime createdDate;
+    private String createdDate;
     private String writer;
 
 
