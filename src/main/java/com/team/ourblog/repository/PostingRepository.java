@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface PostingRepository extends JpaRepository<Posting,Long> {
@@ -21,7 +20,7 @@ public interface PostingRepository extends JpaRepository<Posting,Long> {
 
     // 게시물 상세조회
     @Query(value = "SELECT p FROM Posting p JOIN FETCH p.member")
-    Optional<Posting> findByIdWithMemberAndComment(Long postId);
+    List<Posting> findByIdWithMemberAndComment(Long postId);
 
     // 맴버의 게시물 전체 삭제
     void deleteAllByMember(Member member);

@@ -4,8 +4,8 @@ import com.team.ourblog.common.ResourceNotFoundException;
 import com.team.ourblog.dto.request.posting.PostingRequestDto;
 import com.team.ourblog.dto.request.posting.PostingUpdateDto;
 import com.team.ourblog.dto.response.posting.DetailResponseDto;
-import com.team.ourblog.dto.response.posting.PostingResponseDto;
 import com.team.ourblog.dto.response.posting.PostingListResponseDto;
+import com.team.ourblog.dto.response.posting.PostingResponseDto;
 import com.team.ourblog.entity.Member;
 import com.team.ourblog.entity.Posting;
 import com.team.ourblog.repository.MemberRepository;
@@ -68,20 +68,21 @@ public class PostingService {
     }
 
     // 게시물 상세보기
-    public DetailResponseDto getPostingDetail(Long postId) {
-        Posting postingDetail = postingRepository.findByIdWithMemberAndComment(postId).orElseThrow(
-                () -> new ResourceNotFoundException("Posting", "Post Id",String.valueOf(postId))
-        );
-        return DetailResponseDto.fromEntity(postingDetail);
-
+    public List<DetailResponseDto> getPostingDetail(Long postId) {
+        List<Posting> postingDetail = postingRepository.findByIdWithMemberAndComment(postId);
+        return postingDetail.stream().map(DetailResponseDto::fromEntity)
+                .collect(Collectors.toList());
     }
-    // 게시물 수정
-    public DetailResponseDto update(Long postId, PostingUpdateDto requestDto) {
-        Posting updatePosting = postingRepository.findByIdWithMemberAndComment(postId).orElseThrow(
-                () -> new ResourceNotFoundException("Posting", "Post Id",String.valueOf(postId))
-        );
-        updatePosting.update(requestDto.getTitle(), requestDto.getContent());
-        return DetailResponseDto.fromEntity(updatePosting);
+
+     //게시물 수정
+    public List<DetailResponseDto> update(Long postId, PostingUpdateDto requestDto) {
+        List<Posting> updatePostingList = postingRepository.findByIdWithMemberAndComment(postId);
+
+        for(Posting updatePosting : updatePostingList){
+            updatePosting.update(requestDto.getTitle(), requestDto.getContent());
+        }
+        return updatePostingList.stream().map(DetailResponseDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     // 게시물 삭제

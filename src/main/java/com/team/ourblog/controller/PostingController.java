@@ -45,17 +45,17 @@ public class PostingController {
 
     // 게시물 상세보기
     @GetMapping("/{postId}")
-    public ResponseEntity<DetailResponseDto> getPostingDetail(@PathVariable Long postId){
-        DetailResponseDto postingDetail = postingService.getPostingDetail(postId);
+    public ResponseEntity<List<DetailResponseDto>> getPostingDetail(@PathVariable Long postId){
+        List<DetailResponseDto> postingDetail = postingService.getPostingDetail(postId);
 
         return ResponseEntity.status(HttpStatus.OK).body(postingDetail);
     }
 
-    // 게시물 수정
+     //게시물 수정
     @PutMapping("/{postId}")
-    public ResponseEntity<DetailResponseDto> updatePosting(@PathVariable Long postId, @RequestBody PostingUpdateDto requestDto){
+    public ResponseEntity<List<DetailResponseDto>> updatePosting(@PathVariable Long postId, @RequestBody PostingUpdateDto requestDto){
 
-        DetailResponseDto updateDto = postingService.update(postId, requestDto);
+        List<DetailResponseDto> updateDto = postingService.update(postId, requestDto);
 
         return ResponseEntity.status(HttpStatus.OK).body(updateDto);
     }
