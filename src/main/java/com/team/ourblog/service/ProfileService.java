@@ -28,7 +28,7 @@ public class ProfileService {
     // 회원가입시 기본으로 프로필 생성
 
     public Image createImageStorage(Member member) {
-        String imageUrl = "profileImages/anonymus.png";
+        String imageUrl = "src/asset/anonymous.png";
         Image image = Image.builder()
                 .url(imageUrl)
                 .member(member)
@@ -40,24 +40,10 @@ public class ProfileService {
         Member member = memberRepository.findById(memberId).orElseThrow(
                 () -> new ResourceNotFoundException("Member", "Member Id", String.valueOf(memberId))
         );
-//        MultipartFile file = requestDto.getFile();
-//
-//        UUID uuid = UUID.randomUUID();
-//        String imageFileName = uuid + "_" + file.getOriginalFilename();
-//
-//        File destinationFile = new File(uploadFolder + imageFileName);
-//
-//        try{
-//            file.transferTo(destinationFile);
-//
-//            Image image = profileRepository.findByMember(member);
-//                // 이미지가 이미 존재하면 url 업데이트
-//                image.updateUrl("/profileImages/" + imageFileName);
-//
-//            profileRepository.save(image);
-//        }catch (IOException e){
-//            throw new RuntimeException(e);
-//        }
+
+        Image image = profileRepository.findByMember(member);
+        image.updateUrl(requestDto.getImgUrl());
+        profileRepository.save(image);
     }
     // 닉네임 수정
     public void updateNickname(NicknameRequestDto requestDto, Long memberId) {
