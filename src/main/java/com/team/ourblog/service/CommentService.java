@@ -28,7 +28,7 @@ public class CommentService {
 
     // 댓글
     public List<CommentResponseDto> getAllComments(Long postId) {
-        List<Comment> commentList = commentRepository.findAllWithMemberAndPostingOrderByCreateDateDesc(postId);
+        List<Comment> commentList = commentRepository.findAllWithMemberAndPostingOrderByCreatedDateDesc(postId);
         return commentList.stream()
                 .map(CommentResponseDto::fromEntity)
                 .collect(Collectors.toList());
@@ -53,6 +53,7 @@ public class CommentService {
         return CommentResponseDto.fromEntity(saveComment);
     }
 
+    // 댓글 삭제
     public void delete(Long commentId) {
         commentRepository.deleteById(commentId);
     }

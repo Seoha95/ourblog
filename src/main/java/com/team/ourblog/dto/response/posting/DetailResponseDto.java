@@ -1,14 +1,11 @@
 package com.team.ourblog.dto.response.posting;
 
 
-import com.team.ourblog.dto.response.comment.CommentResponseDto;
 import com.team.ourblog.entity.Posting;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -21,7 +18,6 @@ public class DetailResponseDto {
     private String content;
     private String writer;
     private String createdDate;
-    private List<CommentResponseDto> commentList;
 
 
     // Entity -> DTO
