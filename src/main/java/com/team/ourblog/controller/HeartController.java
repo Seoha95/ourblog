@@ -16,17 +16,16 @@ import java.util.HashMap;
 public class HeartController {
 
     private final HeartService heartService;
-
-    @GetMapping("/{postId}")
+    // 좋아요 갯수 조회
+    @GetMapping("/get/{postId}")
     public HashMap<String, Object> getHeart(@PathVariable Long postId) {
-        Long memberId = SecurityUtil.getCurrentMemberId();
+        //Long memberId = SecurityUtil.getCurrentMemberId();
 
-        return heartService.getHeart(postId, memberId);
+        return heartService.getHeart(postId);
     }
 
-
     // 좋아요
-    @PostMapping("/{postId}")
+    @PostMapping("/post/{postId}")
     public ResponseEntity<String> heartInsert(@PathVariable Long postId) {
         Long memberId = SecurityUtil.getCurrentMemberId();
         Heart heart = heartService.heartInsert(postId, memberId);
@@ -36,7 +35,7 @@ public class HeartController {
         return ResponseEntity.status(HttpStatus.OK).body("좋아요");
     }
     // 좋아요 취소
-    @DeleteMapping("/{postId}")
+    @DeleteMapping("/delete/{postId}")
     public ResponseEntity<String> heartDelete(@PathVariable Long postId) {
         Long memberId = SecurityUtil.getCurrentMemberId();
         Heart heart = heartService.heartDelete(postId, memberId);

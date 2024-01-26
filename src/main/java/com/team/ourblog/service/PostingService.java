@@ -32,6 +32,7 @@ public class PostingService {
                 .collect(Collectors.toList());
     }
 
+    // 로그인한 회원의 게시물 전체보기
     public List<PostingListResponseDto> getUserPostingList(Long memberId){
         List<Posting> postingList = postingRepository.findAllByMember_Id(memberId);
         return postingList.stream()
