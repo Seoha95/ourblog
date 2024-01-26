@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class ImageRequestDto {
 
-    private String imgUrl;
+    private String imageUrl;
 
 }

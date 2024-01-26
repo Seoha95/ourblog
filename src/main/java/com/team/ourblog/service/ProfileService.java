@@ -42,7 +42,7 @@ public class ProfileService {
         );
 
         Image image = profileRepository.findByMember(member);
-        image.updateUrl(requestDto.getImgUrl());
+        image.updateUrl(requestDto.getImageUrl());
         profileRepository.save(image);
     }
     // 닉네임 수정
