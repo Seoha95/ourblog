@@ -63,15 +63,26 @@ public class HeartService {
         }
     }
 
-    // 좋아요 조회
+    // 익명의 사용자 좋아요 조회
     public HashMap<String, Object> getHeart(Long postId) {
 
         Posting posting = postingRepository.findById(postId).orElseThrow(
                 () -> new ResourceNotFoundException("Posting", "Posting Id", String.valueOf(postId))
         );
-        Heart heart = heartRepository.findByPostingIdAndMemberId(postId, posting.getMember().getId());
 
+        List<Heart> heartCount = heartRepository.findByPostingId(postId);
+        Integer count = heartCount.size();
+        HashMap<String, Object> hashMap = new HashMap<>();
 
+        hashMap.put("check", false);
+        hashMap.put("heartCount", count);
+        return hashMap;
+    }
+
+    // 익명의 사용자 좋아요 조회
+    public HashMap<String, Object> getHeartUser(Long postId, Long memberId) {
+
+        Heart heart = heartRepository.findByPostingIdAndMemberId(postId, memberId);
         List<Heart> heartCount = heartRepository.findByPostingId(postId);
         Integer count = heartCount.size();
         HashMap<String, Object> hashMap = new HashMap<>();

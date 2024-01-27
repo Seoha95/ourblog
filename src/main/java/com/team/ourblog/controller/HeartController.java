@@ -16,12 +16,19 @@ import java.util.HashMap;
 public class HeartController {
 
     private final HeartService heartService;
-    // 좋아요 갯수 조회
-    @GetMapping("/get/{postId}")
+    // 좋아요 조회 로그인 안 한 상태
+    @GetMapping("/anonymous/{postId}")
     public HashMap<String, Object> getHeart(@PathVariable Long postId) {
-        //Long memberId = SecurityUtil.getCurrentMemberId();
 
         return heartService.getHeart(postId);
+    }
+
+    // 좋아요 조회 로그인 했을 때
+    @GetMapping("/user/{postId}")
+    public HashMap<String, Object> getHeartUser(@PathVariable Long postId) {
+        Long memberId = SecurityUtil.getCurrentMemberId();
+
+            return heartService.getHeartUser(postId,memberId);
     }
 
     // 좋아요

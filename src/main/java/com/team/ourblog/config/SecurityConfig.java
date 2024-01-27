@@ -51,7 +51,7 @@ public class SecurityConfig {
                                 .requestMatchers("/member/**").permitAll()
                                 .requestMatchers("/posting/**").permitAll()
                                 .requestMatchers("/member/info").permitAll()
-                                .requestMatchers("/heart/get").permitAll()
+                                .requestMatchers("/heart/anonymous").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class)
