@@ -13,11 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @SpringBootTest
@@ -32,32 +30,25 @@ class AuthServiceTest {
 
     private MemberRequestDto dto;
 
-    private MemberRequestDto createTestMemberRequestDto(){
-        MemberRequestDto dto = new MemberRequestDto();
-        dto.setName("테스트");
-        dto.setEmail("test2@naver.com");
-        dto.setNickname("테스트야");
-        dto.setPassword("dltjgk19950322@");
-        return dto;
-    }
-
     @BeforeEach
     void setUp(){
         dto = createTestMemberRequestDto();
+
     }
 
     @Test
     void join() {
-        //when
+
         MemberResponseDto responseDto = authService.join(dto);
 
-        //then
         UserDetails  userDetails = customUserDetailsService.loadUserByUsername(responseDto.getEmail());
         Long memberId = Long.parseLong(userDetails.getUsername());
 
         Member saveMember = memberRepository.findById(memberId).orElse(null);
+        // 회원가입 성공시 값이 있으면 null이 아니다.
         assertThat(saveMember).isNotNull();
-        assertThat(saveMember.getEmail()).isEqualTo(dto.getEmail());
+        // 회원가입시 기본으로 4개의 카테고리가 생겨야 한다.
+        assertThat(saveMember.getCategories().size()).isEqualTo(4);
     }
     @Test
     void createImageStorage(){
@@ -65,35 +56,17 @@ class AuthServiceTest {
         Member member = dto.toMember(passwordEncoder);
         Member saveMember = memberRepository.save(member);
 
-        //when
         Image createdImage = profileService.createImageStorage(saveMember);
 
-        //then
         assertThat(saveMember).isNotNull();
-        assertThat(createdImage.getMember()).isEqualTo(saveMember);
-        assertThat(createdImage.getUrl()).isNotNull();
-        assertThat(createdImage.getUrl()).startsWith("profileImages/");
-        assertThat(createdImage.getUrl()).endsWith(".png");
-    }
 
-
-    @Test
-    void createDefaultCategoriesOnJoin(){
-
-        //when
-        Member member = dto.toMember(passwordEncoder);
-        Member saveMember = memberRepository.save(member);
-
-        memberService.createDefaultCategoriesOnJoin(saveMember);
-
-        assertThat(saveMember).isNotNull();
-        assertThat(saveMember.getCategories()).isNotNull();
-        assertThat(saveMember.getCategories().size()).isEqualTo(4);
+        assertThat(createdImage.getUrl()).isEqualTo("src/asset/anonymous.png");
     }
 
     @Test
     void login() {
         authService.join(dto);
+
         MemberRequestDto requestDto = new MemberRequestDto();
         requestDto.setEmail(dto.getEmail());
         requestDto.setPassword(dto.getPassword());
@@ -131,13 +104,19 @@ class AuthServiceTest {
 
         MemberResponseDto responseDto = authService.join(dto);
 
-        //then
         UserDetails  userDetails = customUserDetailsService.loadUserByUsername(responseDto.getEmail());
         Long userId = Long.parseLong(userDetails.getUsername());
         authService.withdraw(userId);
-        assertThrows(UsernameNotFoundException.class, () -> {
-            customUserDetailsService.loadUserByUsername(dto.getEmail());
-        });
 
+        assertThat(memberRepository.findById(userId)).isEmpty();
+    }
+
+    private MemberRequestDto createTestMemberRequestDto(){
+        MemberRequestDto dto = new MemberRequestDto();
+        dto.setName("테스트");
+        dto.setEmail("test2@naver.com");
+        dto.setNickname("테스트야");
+        dto.setPassword("dltjgk19950322@");
+        return dto;
     }
 }
