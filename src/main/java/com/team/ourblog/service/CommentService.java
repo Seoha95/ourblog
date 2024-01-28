@@ -35,19 +35,19 @@ public class CommentService {
     }
 
     //댓글작성
-    public CommentResponseDto create(Long postId, Member member, CommentRequestDto requestDto) {
+    public CommentResponseDto create(Long postId, Long memberId, CommentRequestDto requestDto) {
         // posting id 검색
         Posting posting_number = postingRepository.findById(postId).orElseThrow(
                 () -> new ResourceNotFoundException("Posting", "Posting id", String.valueOf(postId))
         );
         // member에서 댓글 작성자 검색
-        Member author = memberRepository.findByNickname(member.getNickname()).orElseThrow(
-                () -> new ResourceNotFoundException("Member", "Member Nickname", String.valueOf(member.getNickname()))
+        Member member = memberRepository.findById(memberId).orElseThrow(
+                () -> new ResourceNotFoundException("Member", "Member Id", String.valueOf(memberId))
         );
 
         Comment comment = CommentRequestDto.ofEntity(requestDto);
         comment.setPosting(posting_number);
-        comment.setMember(author);
+        comment.setMember(member);
 
         Comment saveComment = commentRepository.save(comment);
         return CommentResponseDto.fromEntity(saveComment);
