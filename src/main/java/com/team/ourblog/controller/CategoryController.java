@@ -48,7 +48,6 @@ public class CategoryController {
     // 카테고리 이름 수정
     @PatchMapping("/{categoryId}")
     public ResponseEntity<CategoryResponseDto> updateCategory(@PathVariable Long categoryId, @RequestBody CategoryRequestDto requestDto){
-
         CategoryResponseDto updateDto = categoryService.updateCategory(requestDto, categoryId);
         return ResponseEntity.status(HttpStatus.OK).body(updateDto);
     }

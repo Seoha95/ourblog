@@ -50,12 +50,13 @@ public class Posting {
     private Category category;
 
     @Builder
-    public Posting(Long id, String title, String nickName, String content, Member member){
+    public Posting(Long id, String title, String nickName, String content, Member member, Long categoryId){
         this.id = id;
         this.title = title;
         this.content = content;
         this.nickName = nickName;
         this.member = member;
+        this.category = Category.builder().id(categoryId).build();
 
     }
     //== Member & Board 연관관계 편의 메소드 ==//
