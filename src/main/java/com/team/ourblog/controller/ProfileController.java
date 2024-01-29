@@ -53,7 +53,7 @@ public class ProfileController {
     @PatchMapping("/passwordUpdate")
     public ResponseEntity<String> updatePassword(@RequestBody PassswordRequestDto requestDto){
         Long memberId = SecurityUtil.getCurrentMemberId();
-        profileService.updatePassword(memberId, requestDto.getCurrentPassword(), requestDto.getNewPassword());
+        profileService.updatePassword(requestDto, memberId);
         return ResponseEntity.status(HttpStatus.OK).body("update success");
 
     }

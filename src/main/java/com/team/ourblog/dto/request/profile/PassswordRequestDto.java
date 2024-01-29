@@ -7,8 +7,6 @@ import lombok.Setter;
 @Getter
 public class PassswordRequestDto {
 
-    private String currentPassword;
-
     private String newPassword;
 
 

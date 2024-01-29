@@ -1,16 +1,18 @@
 package com.team.ourblog.service;
 
-import com.team.ourblog.common.InvalidPasswordException;
+import com.team.ourblog.common.MemberException;
 import com.team.ourblog.common.ResourceNotFoundException;
 import com.team.ourblog.dto.request.profile.EmailRequestDto;
 import com.team.ourblog.dto.request.profile.ImageRequestDto;
 import com.team.ourblog.dto.request.profile.NicknameRequestDto;
+import com.team.ourblog.dto.request.profile.PassswordRequestDto;
 import com.team.ourblog.entity.Image;
 import com.team.ourblog.entity.Member;
 import com.team.ourblog.repository.MemberRepository;
 import com.team.ourblog.repository.ProfileRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -65,9 +67,13 @@ public class ProfileService {
         memberRepository.save(member);
     }
     // 비밀번호 수정
-    public void updatePassword(Long memberId, String currentPassword, String newPassword) {
-        Member member = validatePassword(memberId, currentPassword);
-        member.updatePassword(newPassword, passwordEncoder);
+    public void updatePassword(PassswordRequestDto requestDto, Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(
+                () -> new ResourceNotFoundException("Member", "Member Id", String.valueOf(memberId))
+        );
+        String encodePassword = passwordEncoder.encode(requestDto.getNewPassword());
+        member.updatePassword(encodePassword);
+        memberRepository.save(member);
     }
 
     // 현재 비밀번호가 일치하는지 검증
@@ -75,8 +81,9 @@ public class ProfileService {
         Member member = memberRepository.findById(memberId).orElseThrow(
                 () -> new ResourceNotFoundException("Member", "Member Id", String.valueOf(memberId))
         );
-        if(!passwordEncoder.matches(currentPassword, member.getPassword())){
-            throw new InvalidPasswordException("Current password does not match");
+
+        if(!currentPassword.equals(member.getPassword())){
+            throw new MemberException("패스워드 불일치", HttpStatus.BAD_REQUEST);
         }
         return member;
     }
