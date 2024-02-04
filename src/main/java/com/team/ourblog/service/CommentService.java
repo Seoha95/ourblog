@@ -28,7 +28,7 @@ public class CommentService {
 
     // 댓글
     public List<CommentResponseDto> getAllComments(Long postId) {
-        List<Comment> commentList = commentRepository.findAllWithMemberAndPostingOrderByCreatedDateDesc(postId);
+        List<Comment> commentList = commentRepository.findAllWithMemberAndPostingOrderByCreatedDatedDesc(postId);
         return commentList.stream()
                 .map(CommentResponseDto::fromEntity)
                 .collect(Collectors.toList());
