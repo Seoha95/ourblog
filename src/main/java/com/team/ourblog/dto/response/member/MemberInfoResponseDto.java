@@ -13,13 +13,12 @@ import java.util.List;
 @Setter
 public class MemberInfoResponseDto {
 
-    private String nickname;
+    //private String nickname;
     private List<Category> categories;
 
-    public static MemberInfoResponseDto fromEntity(List<Category> categories, String nickname) {
+    public static MemberInfoResponseDto fromEntity(List<Category> categories) {
         return MemberInfoResponseDto.builder()
                 .categories(categories)
-                .nickname(nickname)
                 .build();
     }
 }

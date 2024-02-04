@@ -61,14 +61,14 @@ public class MemberController {
         return ResponseEntity.ok(tokenDto);
     }
     // 사용자 블로그 메인페이지
-    @GetMapping("/info")
+    @GetMapping("/categories")
     public ResponseEntity<MemberInfoResponseDto> userInfo(){
         Long memberId = SecurityUtil.getCurrentMemberId();
-        MemberInfoResponseDto responseDto = memberService.findByIdWithCategoriesAndNickname(memberId);
+        MemberInfoResponseDto responseDto = memberService.findByIdWithCategories(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 
-    // 토큰 만료시 재발급
+    // 토큰 만료시 재발급posting
     @PostMapping("/reissue")
     public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
         return ResponseEntity.ok(authService.reissue(tokenRequestDto));

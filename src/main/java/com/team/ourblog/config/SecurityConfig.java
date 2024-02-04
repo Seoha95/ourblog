@@ -47,10 +47,9 @@ public class SecurityConfig {
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
-                                .requestMatchers("/", "/**").permitAll()
+                                .requestMatchers("member/myPage","member/categories").hasRole("USER")
                                 .requestMatchers("/member/**").permitAll()
                                 .requestMatchers("/posting/**").permitAll()
-                                .requestMatchers("/member/info").permitAll()
                                 .requestMatchers("/heart/anonymous").permitAll()
                                 .anyRequest().authenticated()
                 )

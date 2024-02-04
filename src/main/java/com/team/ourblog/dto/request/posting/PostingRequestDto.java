@@ -11,7 +11,7 @@ public class PostingRequestDto {
     private String nickName;
     private String title;
     private String content;
-    private Long categoryId;
+    private String categoryId;
 
 
     @Builder
@@ -20,7 +20,7 @@ public class PostingRequestDto {
                 .nickName(requestDto.nickName)
                 .title(requestDto.title)
                 .content(requestDto.content)
-                .categoryId(requestDto.categoryId)
+                .categoryId(Long.parseLong(requestDto.categoryId))
                 .build();
     }
 }

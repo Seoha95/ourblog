@@ -37,14 +37,13 @@ public class MemberService {
 
 
     // 회원의 카테고리와 닉네임 가져오는 기능
-    public MemberInfoResponseDto findByIdWithCategoriesAndNickname(Long memberId) {
+    public MemberInfoResponseDto findByIdWithCategories(Long memberId) {
         Member memberInfo = memberRepository.findById(memberId).orElseThrow(
                 () -> new ResourceNotFoundException("Member", "Member Id", String.valueOf(memberId))
         );
         List<Category> categories = memberInfo.getCategories();
-        String nickname = memberInfo.getNickname();
 
-        return MemberInfoResponseDto.fromEntity(categories, nickname);
+        return MemberInfoResponseDto.fromEntity(categories);
 
     }
     // 이메일 중복체크
