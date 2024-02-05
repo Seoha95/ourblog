@@ -14,6 +14,7 @@ public class CommentResponseDto {
     private String createdDate;
     private String author;
     private String imageUrl;
+    private String email;
 
     public static CommentResponseDto fromEntity(Comment comment) {
         return CommentResponseDto.builder()
@@ -22,6 +23,7 @@ public class CommentResponseDto {
                 .createdDate(comment.getCreatedDate())
                 .author(comment.getMember().getNickname())
                 .imageUrl(comment.getMember().getImage().getUrl())
+                .email(comment.getMember().getEmail())
                 .build();
 
     }
