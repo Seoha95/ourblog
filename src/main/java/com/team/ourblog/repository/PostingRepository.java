@@ -4,11 +4,9 @@ import com.team.ourblog.entity.Member;
 import com.team.ourblog.entity.Posting;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface PostingRepository extends JpaRepository<Posting,Long> {
 
     // 게시물 전체 조회 (로그인 안 했을 때 메인 페이지)

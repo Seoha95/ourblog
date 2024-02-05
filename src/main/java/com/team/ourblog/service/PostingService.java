@@ -78,7 +78,6 @@ public class PostingService {
      //게시물 수정
     public List<DetailResponseDto> update(Long postId, PostingUpdateDto requestDto) {
         List<Posting> updatePostingList = postingRepository.findByIdWithMemberAndComment(postId);
-
         for(Posting updatePosting : updatePostingList){
             updatePosting.update(requestDto.getTitle(), requestDto.getContent());
         }
