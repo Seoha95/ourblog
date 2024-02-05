@@ -5,13 +5,13 @@ import lombok.*;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommentRequestDto {
 
     private String reply;
 
+    @Builder
     public static Comment ofEntity(CommentRequestDto requestDto){
         return Comment.builder()
                 .reply(requestDto.getReply())

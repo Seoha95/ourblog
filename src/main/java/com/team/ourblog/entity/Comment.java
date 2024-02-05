@@ -12,9 +12,9 @@ import java.time.format.DateTimeFormatter;
 
 @Getter
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Comment {
 
     @Id
