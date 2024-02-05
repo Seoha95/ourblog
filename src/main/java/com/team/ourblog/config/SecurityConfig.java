@@ -48,7 +48,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
                                 .requestMatchers("/member/join","/member/login","member/checkEmail","member/checkNickname").permitAll()
-                                .requestMatchers("/posting/list","posting/detail").permitAll()
+                                .requestMatchers("/posting/list","posting/detail/**").permitAll()
                                 .requestMatchers("comment/list").permitAll()
                                 .requestMatchers("/heart/anonymous").permitAll()
                                 .anyRequest().authenticated()
