@@ -18,6 +18,7 @@ public class DetailResponseDto {
     private String content;
     private String writer;
     private String createdDate;
+    private String email;
 
 
     // Entity -> DTO
@@ -28,6 +29,7 @@ public class DetailResponseDto {
                 .content(posting.getContent())
                 .writer(posting.getMember().getUsername())
                 .createdDate(posting.getCreatedDate())
+                .email(posting.getMember().getEmail())
                 .build();
     }
 
