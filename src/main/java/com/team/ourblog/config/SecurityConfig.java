@@ -47,9 +47,9 @@ public class SecurityConfig {
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
-                                .requestMatchers("member/myPage","member/categories").hasRole("USER")
-                                .requestMatchers("/member/**").permitAll()
-                                .requestMatchers("/posting/**").permitAll()
+                                .requestMatchers("/member/join","/member/login","member/checkEmail","member/checkNickname").permitAll()
+                                .requestMatchers("/posting/list","posting/detail").permitAll()
+                                .requestMatchers("comment/list").permitAll()
                                 .requestMatchers("/heart/anonymous").permitAll()
                                 .anyRequest().authenticated()
                 )

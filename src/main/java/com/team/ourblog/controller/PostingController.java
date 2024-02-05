@@ -44,7 +44,7 @@ public class PostingController {
     }
 
     // 게시물 상세보기
-    @GetMapping("/{postId}")
+    @GetMapping("/detail/{postId}")
     public ResponseEntity<List<DetailResponseDto>> getPostingDetail(@PathVariable Long postId){
         List<DetailResponseDto> postingDetail = postingService.getPostingDetail(postId);
 
