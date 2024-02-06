@@ -2,6 +2,7 @@ package com.team.ourblog.service;
 
 import com.team.ourblog.common.MemberException;
 import com.team.ourblog.common.ResourceNotFoundException;
+import com.team.ourblog.dto.response.admin.UserResponseDto;
 import com.team.ourblog.dto.response.member.MemberInfoResponseDto;
 import com.team.ourblog.dto.response.member.MemberPageResponseDto;
 import com.team.ourblog.entity.Category;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -73,5 +75,19 @@ public class MemberService {
             saveMember.getCategories().add(category);
 
         }
+    }
+
+    // 관리자가 전체 회원정보 조회
+    public List<UserResponseDto> findAll() {
+        List<Member> memberList = memberRepository.findAll();
+        return memberList.stream().map(UserResponseDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+    // 관리자가 회원의 정보를 삭제
+    public void deleteUser(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(
+                () -> new ResourceNotFoundException("Member", "Member Id", String.valueOf(memberId))
+        );
+        memberRepository.delete(member);
     }
 }
