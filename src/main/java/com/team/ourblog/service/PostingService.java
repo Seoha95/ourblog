@@ -76,13 +76,12 @@ public class PostingService {
     }
 
      //게시물 수정
-    public List<DetailResponseDto> update(Long postId, PostingUpdateDto requestDto) {
-        List<Posting> updatePostingList = postingRepository.findByIdWithMemberAndComment(postId);
-        for(Posting updatePosting : updatePostingList){
-            updatePosting.update(requestDto.getTitle(), requestDto.getContent());
-        }
-        return updatePostingList.stream().map(DetailResponseDto::fromEntity)
-                .collect(Collectors.toList());
+    public DetailResponseDto update(Long postId, PostingUpdateDto requestDto) {
+        Posting posting = postingRepository.findById(postId).orElseThrow(
+                () -> new ResourceNotFoundException("Posting", "Posting Id", String.valueOf(postId))
+        );
+        posting.update(requestDto.getTitle(), requestDto.getContent());
+        return DetailResponseDto.fromEntity(posting);
     }
 
     // 게시물 삭제

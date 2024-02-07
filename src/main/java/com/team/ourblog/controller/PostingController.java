@@ -53,9 +53,9 @@ public class PostingController {
 
      //게시물 수정
     @PutMapping("/{postId}")
-    public ResponseEntity<List<DetailResponseDto>> updatePosting(@PathVariable Long postId, @RequestBody PostingUpdateDto requestDto){
+    public ResponseEntity<DetailResponseDto> updatePosting(@PathVariable Long postId, @RequestBody PostingUpdateDto requestDto){
 
-        List<DetailResponseDto> updateDto = postingService.update(postId, requestDto);
+        DetailResponseDto updateDto = postingService.update(postId, requestDto);
 
         return ResponseEntity.status(HttpStatus.OK).body(updateDto);
     }
