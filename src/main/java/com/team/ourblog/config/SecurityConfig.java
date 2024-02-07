@@ -51,6 +51,7 @@ public class SecurityConfig {
                                 .requestMatchers("/posting/list","posting/detail/**").permitAll()
                                 .requestMatchers("comment/list").permitAll()
                                 .requestMatchers("/heart/anonymous").permitAll()
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class)
