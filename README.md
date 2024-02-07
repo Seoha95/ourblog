@@ -18,6 +18,18 @@
        
  </br>     
 
+ ### 3. API 설계 
+ ---   
+ ![Member](https://github.com/Seoha95/ourblog/assets/107228582/4b4056ba-bb1e-42c5-af66-823252da630d)   
+ ![Admin](https://github.com/Seoha95/ourblog/assets/107228582/2a653696-106a-4faa-9998-e9cb54e94f97)   
+![Profile](https://github.com/Seoha95/ourblog/assets/107228582/d9071551-c6a4-420f-930e-2c5a2c7cbd69)   
+![Posting](https://github.com/Seoha95/ourblog/assets/107228582/ad9aff2b-ece7-4d1f-aa83-1f9b34e1d73e)   
+![Heart](https://github.com/Seoha95/ourblog/assets/107228582/00713183-ee70-41ae-b592-9c8019c93b23)   
+![Comment](https://github.com/Seoha95/ourblog/assets/107228582/acd8a181-89f0-4569-924c-e0ad96319d9a)   
+![Category](https://github.com/Seoha95/ourblog/assets/107228582/997c46bf-1187-4732-b659-307f82b35831)   
+
+</br>   
+
 ### 5.핵심기능   
   * 로그인 시 토큰 발급 : 사용자가 로그인을 하면 토큰을 발급 해줍니다.   
   * 회원 정보 수정 : 마이페이지에서 정보를 수정하거나 회원탈퇴가 가능합니다. 
