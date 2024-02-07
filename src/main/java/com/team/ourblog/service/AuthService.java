@@ -104,9 +104,7 @@ public class AuthService {
         Member member = memberRepository.findById(memberId).orElseThrow(
                 () -> new ResourceNotFoundException("Member", "Member Id", String.valueOf(memberId))
         );
-        commentRepository.deleteAllByMember(member);
-        postingRepository.deleteAllByMember(member);
-        profileRepository.deleteAllByMember(member);
+
         memberRepository.delete(member);
 
     }
