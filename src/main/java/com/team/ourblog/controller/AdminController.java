@@ -26,10 +26,10 @@ public class AdminController {
     }
 
     // 관리자가 회원의 정보를 삭제
-    @DeleteMapping("memberDelete")
-    public ResponseEntity<Long> deleteUser(@PathVariable Long memberId) {
+    @DeleteMapping("/memberDelete/{memberId}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long memberId) {
         memberService.deleteUser(memberId);
 
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.OK).body("delete success");
     }
 }
