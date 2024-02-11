@@ -21,12 +21,12 @@
  ### 3. API 설계 
  ---   
  ![Member](https://github.com/Seoha95/ourblog/assets/107228582/4b4056ba-bb1e-42c5-af66-823252da630d)   
- ![Admin](https://github.com/Seoha95/ourblog/assets/107228582/2a653696-106a-4faa-9998-e9cb54e94f97)   
+![Admin](https://github.com/Seoha95/ourblog/assets/107228582/4e0ae996-98e3-4bb6-a852-05b56d8881c4)
 ![Profile](https://github.com/Seoha95/ourblog/assets/107228582/d9071551-c6a4-420f-930e-2c5a2c7cbd69)   
-![Posting](https://github.com/Seoha95/ourblog/assets/107228582/ad9aff2b-ece7-4d1f-aa83-1f9b34e1d73e)   
+![Posting](https://github.com/Seoha95/ourblog/assets/107228582/fb06c28c-c29a-4bdd-98e1-9cb257cadaf9)
 ![Heart](https://github.com/Seoha95/ourblog/assets/107228582/00713183-ee70-41ae-b592-9c8019c93b23)   
 ![Comment](https://github.com/Seoha95/ourblog/assets/107228582/acd8a181-89f0-4569-924c-e0ad96319d9a)   
-![Category](https://github.com/Seoha95/ourblog/assets/107228582/997c46bf-1187-4732-b659-307f82b35831)   
+![Category](https://github.com/Seoha95/ourblog/assets/107228582/767dc16f-a054-4eaf-8e46-fd7a4704c88a)
 
 </br>   
 
@@ -52,7 +52,7 @@
 #### 5-2. 회원 정보 수정 
 * 회원 정보 수정 📍[코드확인](https://github.com/Seoha95/ourblog/blob/a60351ce53debd4ebff276e1bd8da6208081459d/src/main/java/com/team/ourblog/service/ProfileService.java#L19-L77)   
     * 프로필 이미지, 닉네임, 이메일, 비밀번호를 수정할 수 있습니다.
-* 회원 탈퇴 📍[코드확인]()  
+* 회원 탈퇴 📍[코드확인](https://github.com/Seoha95/ourblog/blob/9cf13fbbbc2b31ef474f6c1894a0ba55f8e01a50/src/main/java/com/team/ourblog/service/AuthService.java#L102-L110)  
     * 회원은 마이페이지에서 회원탈퇴를 할 수 있습니다.
 #### 5-3. 게시물 기능 
 * 전체 게시물 조회 기능 📍[코드확인](https://github.com/Seoha95/ourblog/blob/a60351ce53debd4ebff276e1bd8da6208081459d/src/main/java/com/team/ourblog/service/PostingService.java#L27-L33)   
@@ -89,9 +89,55 @@
 </details>   
 
 ### 6.핵심 트러블 슈팅
+#### 6-1. 검색이 안되는 버그   
+제목, 내용, 닉네임으로 게시물을 검색할 수 있도록 구현하였으나 검색이 되지 않는 버그가 발생했습니다.   
+코드를 적어줄 때 검색어가 들어오는 것을 구현할 때 필터링 하는 주제만큼 searchText 매개변수를 넣어줘야 했었는데 1개의 매개변수의 값만 적어주어   
+제대로 기능이 돌아가지 않는 문제가 발생하여 매개변수를 3개를 작성해서 제 기능을 할 수 있었습니다.   
+<details>      
+<summary>기존코드</summary>      
+<pre>
+<code>
+    PostingRepository.java   
+   public interface PostingRepository extends JpaRepository<Posting,Long> {   
+    List<Posting> findByTitleContainingOrContentContainingOrNickNameContainingOrderByCreateDateDesc(String searchText);   
+       }
+  
+    PostingService.java    
+     public List<PostingListResponseDto> getPostingList(String searchText){   
+        List<Posting> postingList = postingRepository.findByTitleContainingOrContentContainingOrNickNameContainingOrderByCreateDateDesc(searchText);   
+         
+        return postingList.stream()   
+                .map(PostingListResponseDto::fromEntity)   
+                .collect(Collectors.toList());   
+</code>
+</pre>
+   
+</details>   
 
-
+<details>
+<summary>개선된 코드</summary>
+<pre>
+<code>   
+     PostingRepository.java   
+     public interface PostingRepository extends JpaRepository<Posting,Long> {  
+     List<Posting> findByTitleContainingOrContentContainingOrNickNameContainingOrderByCreateDateDesc(String title, String content, String nickname);   
+     }   
+        
+     PostingService.java    
+     public List<PostingListResponseDto> getPostingList(String searchText){    
+     List<Posting> postingList = postingRepository.findByTitleContainingOrContentContainingOrNickNameContainingOrderByCreateDateDesc(searchText, searchText, searchText);     
+     return postingList.stream()   
+                .map(PostingListResponseDto::fromEntity)   
+                .collect(Collectors.toList()); 
+</code>    
+</pre>   
+</details>   
 </br>
 
-### 6. 느낀점
+### 6. 느낀점   
+처음으로 프론트엔드 개발자와의 협업이라서 서로 다른 포트를 사용하고 요청받은 데이터를 통해서 데이터를 응답하는 과정이 어려웠습니다.    
+그러나 이렇게 협업을 통해서 변수 하나도 변경할 때에도 프론트 쪽에 영향이 간다는 것을 알 수 있게 되었습니다.   
+그리고 Security Config에서 api url이 /posting/detail/{postId}로 받아야 하는 곳은 .requestMatchers("/posting/list","posting/detail/**").permitAll() {postId}로 들어오는 자리는    
+/**로 코드를 적어줘야 제대로 돌아간다는 것을 알게 되었습니다. 이 프로젝트를 통해서 협업을 할 때는 팀원과의 소통이 중요하다는 것을 배울 수 있었습니다.        
+적어야 프로그램이 제대로 돌아간다는 것을 알게 되었습니다.   
 
