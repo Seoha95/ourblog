@@ -7,6 +7,7 @@ import com.team.ourblog.dto.response.posting.DetailResponseDto;
 import com.team.ourblog.dto.response.posting.PostingListResponseDto;
 import com.team.ourblog.dto.response.posting.PostingResponseDto;
 import com.team.ourblog.service.PostingService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class PostingController {
 
     // 게시물 작성
     @PostMapping("/create")
-    public ResponseEntity<PostingResponseDto> createPosting(@RequestBody PostingRequestDto requestDto) {
+    public ResponseEntity<PostingResponseDto> createPosting(@RequestBody @Valid PostingRequestDto requestDto) {
             Long memberId = SecurityUtil.getCurrentMemberId();
             PostingResponseDto responseDto = postingService.createPosting(requestDto, memberId);
             return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);

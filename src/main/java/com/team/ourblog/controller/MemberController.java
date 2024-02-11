@@ -10,6 +10,7 @@ import com.team.ourblog.dto.response.member.MemberResponseDto;
 import com.team.ourblog.service.AuthService;
 import com.team.ourblog.service.MemberService;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
@@ -70,7 +71,7 @@ public class MemberController {
 
     // 토큰 만료시 재발급posting
     @PostMapping("/reissue")
-    public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
+    public ResponseEntity<TokenDto> reissue(@RequestBody @Valid TokenRequestDto tokenRequestDto) {
         return ResponseEntity.ok(authService.reissue(tokenRequestDto));
     }
 
