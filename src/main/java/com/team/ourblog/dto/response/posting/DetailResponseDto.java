@@ -2,10 +2,7 @@ package com.team.ourblog.dto.response.posting;
 
 
 import com.team.ourblog.entity.Posting;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @AllArgsConstructor

@@ -1,10 +1,7 @@
 package com.team.ourblog.dto.response.admin;
 
 import com.team.ourblog.entity.Member;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @AllArgsConstructor

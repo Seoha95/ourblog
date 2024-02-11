@@ -4,14 +4,13 @@ import com.team.ourblog.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 @Builder
 @AllArgsConstructor
 @Getter
-@Setter
 public class MemberPageResponseDto {
 
+    private Long memberId;
     private String email;
     private String nickname;
     private String imageUrl;
@@ -19,6 +18,7 @@ public class MemberPageResponseDto {
 
     public static MemberPageResponseDto fromEntity(Member member, String imageUrl){
         return MemberPageResponseDto.builder()
+                .memberId(member.getId())
                 .email(member.getEmail())
                 .nickname(member.getNickname())
                 .imageUrl(imageUrl)
