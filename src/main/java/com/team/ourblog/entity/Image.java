@@ -4,14 +4,14 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Builder
 @Getter
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
 public class Image {
+
+    protected Image(){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

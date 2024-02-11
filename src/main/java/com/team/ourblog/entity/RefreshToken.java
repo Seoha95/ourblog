@@ -6,13 +6,14 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 @Builder
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class RefreshToken {
+
+    protected RefreshToken(){}
+
     @Id
     @Column(name = "rt_key")
     private String key;

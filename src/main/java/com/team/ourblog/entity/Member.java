@@ -14,9 +14,10 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
 public class Member implements UserDetails {
+
+    protected Member(){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
