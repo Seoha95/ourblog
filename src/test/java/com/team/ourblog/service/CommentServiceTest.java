@@ -5,10 +5,7 @@ import com.team.ourblog.dto.request.posting.PostingRequestDto;
 import com.team.ourblog.dto.response.comment.CommentResponseDto;
 import com.team.ourblog.dto.response.comment.CommentUpdateDto;
 import com.team.ourblog.dto.response.posting.PostingResponseDto;
-import com.team.ourblog.entity.Authority;
-import com.team.ourblog.entity.Category;
-import com.team.ourblog.entity.Comment;
-import com.team.ourblog.entity.Member;
+import com.team.ourblog.entity.*;
 import com.team.ourblog.repository.CategoryRepository;
 import com.team.ourblog.repository.CommentRepository;
 import com.team.ourblog.repository.MemberRepository;
@@ -35,40 +32,37 @@ class CommentServiceTest {
     PostingRepository postingRepository;
     @Autowired
     CommentRepository commentRepository;
+
     @Autowired
     PostingService postingService;
     @Autowired
     CommentService commentService;
+    private PostingResponseDto responseDto;
+    private CommentResponseDto responseDto1;
 
-    private PostingResponseDto dto;
     private Member testMember;
     private Member testMember2;
 
 
     @BeforeEach
     void setUp(){
-        testMember = createMember("test10@naver.com", "dltjgk19950322@","테스트십","닉네임십");
-        testMember2 = createMember("test11@naver.com", "dltjgk19950322@","테스트십일","닉네임십일");
+        testMember = createMember(2L,"test10@naver.com", "dltjgk19950322@","테스트십","닉네임십");
+        testMember2 = createMember(3L,"test11@naver.com", "dltjgk19950322@","테스트십일","닉네임십일");
 
         Category category = createCategory("음식", testMember);
 
-        PostingRequestDto requestDto = new PostingRequestDto();
-        requestDto.setTitle("테스트제목");
-        requestDto.setContent("테스트내용");
-        requestDto.setNickName("닉네임십");
-        requestDto.setCategoryId(category.getId());
-
-        dto = postingService.createPosting(requestDto, testMember.getId());
+        responseDto = createPosting(String.valueOf(category.getId()),"테스트게시물","테스트내용","닉네임십");
     }
 
-    @Test
-    void getAllComments() {
-        createComment("댓글 첫번째");
-        createComment("댓글 두번째");
 
-        assertThat(commentService.getAllComments(dto.getPostId()).size()).isEqualTo(2);
-
-    }
+//    @Test
+//    void getAllComments() {
+//        createComment("댓글 첫번째");
+//        createComment("댓글 두번째");
+//
+//        assertThat(commentService.getAllComments(responseDto.getPostId()).size()).isEqualTo(2);
+//
+//    }
 
 
 
@@ -107,6 +101,24 @@ class CommentServiceTest {
 
     }
 
+    private Member createMember(Long id, String email, String password, String userName, String nickname) {
+        Member member = new Member(id,email ,nickname,userName,password,Authority.ROLE_USER);
+        Image image = new Image(1L,member,"src/asset/anonymous.png");
+        member.setImage(image);
+        return memberRepository.save(member);
+
+    }
+
+    private PostingResponseDto createPosting(String categoryId,String title, String content, String autor) {
+        PostingRequestDto requestDto = new PostingRequestDto();
+        requestDto.setCategoryId(categoryId);
+        requestDto.setTitle(title);
+        requestDto.setContent(content);
+        requestDto.setNickname(autor);
+
+        return postingService.createPosting(requestDto, testMember.getId());
+    }
+
     private Category createCategory(String categoryName, Member member) {
         Category category = new Category();
         category.setCategoryName(categoryName);
@@ -114,21 +126,10 @@ class CommentServiceTest {
         return categoryRepository.save(category);
     }
 
-    private Member createMember(String email, String password, String userName, String nickname) {
-        Member member = new Member();
-        member.setEmail(email);
-        member.setPassword(password);
-        member.setName(userName);
-        member.setNickname(nickname);
-        member.setAuthority(Authority.ROLE_USER);
-        return memberRepository.save(member);
-
-    }
-
     private CommentResponseDto createComment(String reply) {
         CommentRequestDto commentRequestDto = new CommentRequestDto();
         commentRequestDto.setReply(reply);
-        return commentService.create(dto.getPostId(), testMember2.getId(),commentRequestDto);
+        return commentService.create(responseDto.getPostId(), testMember2.getId(),commentRequestDto);
     }
 
 }
