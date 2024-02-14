@@ -39,22 +39,22 @@ class PostingServiceTest {
 
     @Test
     void createPosting() {
-        testMember = createMember("test10@naver.com", "dltjgk19950322@","테스트십","닉네임십");
+        testMember = createMember(2L,"test10@naver.com", "dltjgk19950322@","테스트십","닉네임십");
 
         Category category = createCategory("음식", testMember);
 
-        PostingResponseDto responseDto = createPosting("테스트제목", "테스트내용", "닉네임십", category.getId());
+        PostingResponseDto responseDto = createPosting(String.valueOf(category.getId()),"테스트게시물","테스트내용","닉네임십");
 
         assertThat(responseDto.getWriter()).isEqualTo("닉네임십");
     }
 
     @Test
     void getPostingDetail() {
-        testMember = createMember("test10@naver.com", "dltjgk19950322@","테스트십","닉네임십");
+        testMember = createMember(2L,"test10@naver.com", "dltjgk19950322@","테스트","닉네임십");
 
         Category category = createCategory("음식", testMember);
 
-        PostingResponseDto responseDto = createPosting("테스트제목", "테스트내용", testMember.getNickname(), category.getId());
+        PostingResponseDto responseDto = createPosting(String.valueOf(category.getId()),"테스트제목","테스트내용",testMember.getNickname());
 
         List<DetailResponseDto> postingDetails = postingService.getPostingDetail(responseDto.getPostId());
 
@@ -67,11 +67,11 @@ class PostingServiceTest {
     @Test
     void update() {
 
-        testMember = createMember("test10@naver.com", "dltjgk19950322@","테스트십","닉네임십");
+        testMember =  createMember(2L,"test10@naver.com", "dltjgk19950322@","테스트","닉네임십");
 
         Category category = createCategory("음식", testMember);
 
-        PostingResponseDto responseDto = createPosting("테스트제목", "테스트내용", testMember.getNickname(), category.getId());
+        PostingResponseDto responseDto = createPosting(String.valueOf(category.getId()),"테스트제목","테스트내용",testMember.getNickname());
 
         assertThat(responseDto.getWriter()).isEqualTo("닉네임십");
 
@@ -79,22 +79,21 @@ class PostingServiceTest {
         updateDto.setTitle("수정한 제목");
         updateDto.setContent("수정한 내용");
 
-        List<DetailResponseDto> detailResponseDtos = postingService.update(responseDto.getPostId(), updateDto);
+        DetailResponseDto detailResponseDtos = postingService.update(responseDto.getPostId(), updateDto);
 
-        for(DetailResponseDto dto1 : detailResponseDtos){
-            assertThat(dto1.getTitle()).isEqualTo("수정한 제목");
-            assertThat(dto1.getContent()).isEqualTo("수정한 내용");
-        }
+            assertThat(detailResponseDtos.getTitle()).isEqualTo("수정한 제목");
+            assertThat(detailResponseDtos.getContent()).isEqualTo("수정한 내용");
+
     }
 
     @Test
     void delete() {
 
-        testMember = createMember("test10@naver.com", "dltjgk19950322@","테스트십","닉네임십");
+        testMember = createMember(2L,"test10@naver.com", "dltjgk19950322@","테스트","닉네임십");
 
         Category category = createCategory("음식", testMember);
 
-        PostingResponseDto responseDto = createPosting("테스트제목", "테스트내용", testMember.getNickname(), category.getId());
+        PostingResponseDto responseDto = createPosting(String.valueOf(category.getId()),"테스트제목","테스트내용",testMember.getNickname());
 
         postingService.delete(responseDto.getPostId());
 
@@ -106,12 +105,12 @@ class PostingServiceTest {
     @Test
     void getPostingList() {
 
-        testMember = createMember("test10@naver.com", "dltjgk19950322@","테스트십","닉네임십");
-        Member testMember2 = createMember("test11@naver.com", "dltjgk19950322@","테스트십일","닉네임십일");
+        testMember = createMember(2L,"test10@naver.com", "dltjgk19950322@","테스트","닉네임십");
+        Member testMember2 = createMember(3L,"test11@naver.com", "dltjgk19950322@","테스트십일","닉네임십일");
 
         Category category = createCategory("음식", testMember);
-        createPosting("테스트제목", "테스트내용", testMember.getNickname(), category.getId());
-        createPosting("테스트제목2","테스트내용2",testMember2.getNickname(), category.getId());
+        createPosting(String.valueOf(category.getId()),"테스트제목", "테스트내용", testMember.getNickname());
+        createPosting(String.valueOf(category.getId()),"테스트제목2","테스트내용2",testMember2.getNickname());
 
         List<PostingListResponseDto> postingList =  postingService.getPostingList();
 
@@ -120,11 +119,11 @@ class PostingServiceTest {
 
     @Test
     void getUserPostingList() {
-        testMember = createMember("test10@naver.com", "dltjgk19950322@","테스트십","닉네임십");
+        testMember = createMember(2L,"test10@naver.com", "dltjgk19950322@","테스트","닉네임십");
 
         Category category = createCategory("음식", testMember);
-        createPosting("테스트제목", "테스트내용", testMember.getNickname(), category.getId());
-        createPosting("테스트제목2","테스트내용2", testMember.getNickname(), category.getId());
+        createPosting(String.valueOf(category.getId()),"테스트제목", "테스트내용", testMember.getNickname());
+        createPosting(String.valueOf(category.getId()),"테스트제목2","테스트내용2",testMember.getNickname());
 
         List<PostingListResponseDto> userPostingList  = postingService.getUserPostingList(testMember.getId());
         assertThat(userPostingList.size()).isEqualTo(2);
@@ -133,11 +132,11 @@ class PostingServiceTest {
     @Test
     void getPostingListCategory() {
 
-        testMember = createMember("test10@naver.com", "dltjgk19950322@","테스트십","닉네임십");
+        testMember = createMember(2L,"test10@naver.com", "dltjgk19950322@","테스트","닉네임십");
 
         Category category = createCategory("음식", testMember);
 
-        createPosting("테스트제목", "테스트내용", testMember.getNickname(), category.getId());
+        createPosting(String.valueOf(category.getId()),"테스트제목", "테스트내용", testMember.getNickname());
 
 
         List<PostingListResponseDto> postingList = postingService.getPostingListCategory(category.getId());
@@ -148,13 +147,8 @@ class PostingServiceTest {
         }
     }
 
-    private Member createMember(String email, String password, String userName, String nickname) {
-        Member member = new Member();
-        member.setEmail(email);
-        member.setPassword(password);
-        member.setName(userName);
-        member.setNickname(nickname);
-        member.setAuthority(Authority.ROLE_USER);
+    private Member createMember(Long id,String email, String password, String userName, String nickname) {
+        Member member =  new Member(id,email,nickname,userName,password,Authority.ROLE_USER);
         return memberRepository.save(member);
 
     }
@@ -164,12 +158,13 @@ class PostingServiceTest {
         category.setMember(member);
         return categoryRepository.save(category);
     }
-    private PostingResponseDto createPosting(String title, String content, String autor, Long categoryId) {
+    private PostingResponseDto createPosting(String categoryId,String title, String content, String autor) {
         PostingRequestDto requestDto = new PostingRequestDto();
+        requestDto.setCategoryId(categoryId);
         requestDto.setTitle(title);
         requestDto.setContent(content);
-        requestDto.setNickName(autor);
-        requestDto.setCategoryId(categoryId);
+        requestDto.setNickname(autor);
+
         return postingService.createPosting(requestDto, testMember.getId());
     }
 }
