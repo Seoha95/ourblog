@@ -44,18 +44,12 @@ class ProfileServiceTest {
 
     @BeforeEach
     void set() {
-        testMember = createMember("test10@naver.com", "dltjgk19950322@", "테스트십", "닉네임십");
+        testMember = createMember(2L,"test10@naver.com", "dltjgk19950322@","테스트십","닉네임십");
     }
 
-    private Member createMember(String email, String password, String userName, String nickname) {
-        Member member = new Member();
-        member.setEmail(email);
-        member.setPassword(password);
-        member.setName(userName);
-        member.setNickname(nickname);
-        member.setAuthority(Authority.ROLE_USER);
+    private Member createMember(Long id,String email, String password, String userName, String nickname) {
+        Member member =  new Member(id,email,nickname,userName,password,Authority.ROLE_USER);
         return memberRepository.save(member);
-
     }
 
     @Test
