@@ -4,7 +4,7 @@
 </br>   
 
 ### 1.제작기간&참여 인원   
-* 2024.01.01 ~ 진행중   
+* 2024.01.01 ~ 2024.02.09   
 * 팀 프로젝트(2명)   
 
 </br>
@@ -31,6 +31,26 @@
 </br>   
 
 ### 4. 실행화면   
+#### 로그인 화면   
+![로그인 화면](https://github.com/Seoha95/ourblog/assets/107228582/3116cdfa-e66c-4a6c-9d03-6d17cad613be)   
+#### 회원가입 화면   
+![회원가입 화면](https://github.com/Seoha95/ourblog/assets/107228582/3bf54520-cae2-49a7-8f70-b343ae2bc666)   
+#### 전체 게시물 보기   
+![전체 게시물 보기](https://github.com/Seoha95/ourblog/assets/107228582/ee212be3-09d3-485c-9edb-955387426b06)   
+#### 나의 블로그 화면   
+![나의 블로그](https://github.com/Seoha95/ourblog/assets/107228582/751322d0-8da1-4996-a3c1-3e3668ef4061)   
+#### 그림자 효과   
+![그림자 효과](https://github.com/Seoha95/ourblog/assets/107228582/82a387c5-9d66-4f6c-a37d-2b39fc7a2d23)   
+#### 4-6. 게시물 작성 화면   
+![게시물 작성](https://github.com/Seoha95/ourblog/assets/107228582/9b7e51a3-904f-4639-8041-20f975c59287)   
+#### 댓글작성 화면   
+![댓글작성](https://github.com/Seoha95/ourblog/assets/107228582/6b9f8374-c7df-44e4-b650-5470c00fb645)   
+#### 게시물 상세보기  
+![게시물 상세보기](https://github.com/Seoha95/ourblog/assets/107228582/bae8874d-62b8-41b8-adde-824464be6823)   
+#### 마이페이지 화면   
+![마이페이지](https://github.com/Seoha95/ourblog/assets/107228582/a068f611-1628-4a92-8e03-5f9b1657472c)   
+#### 관리자 페이지 화면   
+![관리자 페이지](https://github.com/Seoha95/ourblog/assets/107228582/a1edcd45-cdf7-4c25-b8ae-0b3ab625a3a4)   
 
 </br>      
 
