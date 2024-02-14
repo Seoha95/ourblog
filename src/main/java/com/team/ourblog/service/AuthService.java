@@ -28,9 +28,6 @@ public class AuthService {
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
     private final ProfileService profileService;
-    private final PostingRepository postingRepository;
-    private final CommentRepository commentRepository;
-    private final ProfileRepository profileRepository;
 
     public MemberResponseDto join(MemberRequestDto requestDto) {
         memberService.findMemberInfoByEmail(requestDto.getEmail());
