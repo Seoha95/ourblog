@@ -29,13 +29,8 @@ class CategoryServiceTest {
 
     @BeforeEach
     public void setup() {
-        Member testMember = new Member();
-        testMember.setEmail("test");
-        testMember.setPassword("dltjgk19950322@");
-        testMember.setName("테스트");
-        testMember.setNickname("닉네임");
-        testMember.setAuthority(Authority.ROLE_USER);
 
+        Member testMember = new Member(2L,"test@naver.com" ,"닉네임","테스트야","dltjgk19950322@",Authority.ROLE_USER);
         testMember = memberRepository.save(testMember);
         testMeberId = testMember.getId();
 
