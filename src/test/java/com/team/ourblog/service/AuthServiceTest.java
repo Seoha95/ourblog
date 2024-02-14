@@ -28,18 +28,21 @@ class AuthServiceTest {
     @Autowired MemberRepository memberRepository;
     @Autowired ProfileService profileService;
 
-    private MemberRequestDto dto;
+    private MemberRequestDto requestDto;
 
     @BeforeEach
     void setUp(){
-        dto = createTestMemberRequestDto();
-
+        requestDto = new MemberRequestDto();
+        requestDto.setEmail("test@naver.com");
+        requestDto.setName("test");
+        requestDto.setNickname("테스트");
+        requestDto.setPassword("dltjgk19950322@");
     }
 
     @Test
     void join() {
 
-        MemberResponseDto responseDto = authService.join(dto);
+        MemberResponseDto responseDto = authService.join(requestDto);
 
         UserDetails  userDetails = customUserDetailsService.loadUserByUsername(responseDto.getEmail());
         Long memberId = Long.parseLong(userDetails.getUsername());
@@ -53,7 +56,7 @@ class AuthServiceTest {
     @Test
     void createImageStorage(){
 
-        Member member = dto.toMember(passwordEncoder);
+        Member member = requestDto.toMember(passwordEncoder);
         Member saveMember = memberRepository.save(member);
 
         Image createdImage = profileService.createImageStorage(saveMember);
@@ -65,25 +68,17 @@ class AuthServiceTest {
 
     @Test
     void login() {
-        authService.join(dto);
 
-        MemberRequestDto requestDto = new MemberRequestDto();
-        requestDto.setEmail(dto.getEmail());
-        requestDto.setPassword(dto.getPassword());
-        TokenDto  tokenDto = authService.login(requestDto);
+        authService.join(requestDto);
+        TokenDto tokenDto = authService.login(requestDto);
         assertThat(tokenDto.getAccessToken()).isNotNull();
     }
 
-
-
     @Test
     void reissue() {
-        //given
-        authService.join(dto);
-        //when
-        MemberRequestDto requestDto = new MemberRequestDto();
-        requestDto.setEmail(dto.getEmail());
-        requestDto.setPassword(dto.getPassword());
+
+        authService.join(requestDto);
+
         TokenDto tokenDto = authService.login(requestDto);
 
         TokenRequestDto tokenRequestDto = new TokenRequestDto();
@@ -92,7 +87,6 @@ class AuthServiceTest {
 
         TokenDto newToken = authService.reissue(tokenRequestDto);
 
-        //then
         assertThat(newToken).isNotNull();
         assertThat(newToken.getAccessToken()).isNotNull();
         assertThat(newToken.getRefreshToken()).isNotNull();
@@ -102,7 +96,7 @@ class AuthServiceTest {
     @Test
     void withdraw() {
 
-        MemberResponseDto responseDto = authService.join(dto);
+        MemberResponseDto responseDto = authService.join(requestDto);
 
         UserDetails  userDetails = customUserDetailsService.loadUserByUsername(responseDto.getEmail());
         Long userId = Long.parseLong(userDetails.getUsername());
@@ -111,12 +105,4 @@ class AuthServiceTest {
         assertThat(memberRepository.findById(userId)).isEmpty();
     }
 
-    private MemberRequestDto createTestMemberRequestDto(){
-        MemberRequestDto dto = new MemberRequestDto();
-        dto.setName("테스트");
-        dto.setEmail("test2@naver.com");
-        dto.setNickname("테스트야");
-        dto.setPassword("dltjgk19950322@");
-        return dto;
-    }
 }
