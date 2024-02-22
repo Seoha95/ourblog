@@ -26,7 +26,7 @@ public class Comment {
     private String reply;
 
     @CreatedDate
-    private String createdDate = String.valueOf(LocalDate.now());
+    private LocalDate createdDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "POST_ID")

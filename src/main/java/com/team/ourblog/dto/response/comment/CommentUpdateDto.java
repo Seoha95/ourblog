@@ -18,7 +18,7 @@ public class CommentUpdateDto {
         return CommentUpdateDto.builder()
                 .commentId(comment.getId())
                 .reply(comment.getReply())
-                .createdDate(comment.getCreatedDate())
+                .createdDate(String.valueOf(comment.getCreatedDate()))
                 .author(comment.getMember().getNickname())
                 .build();
     }
