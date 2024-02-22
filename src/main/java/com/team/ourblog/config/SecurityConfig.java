@@ -49,7 +49,7 @@ public class SecurityConfig {
                         authorizeHttpRequests
                                 .requestMatchers("/member/join","/member/login","member/checkEmail","member/checkNickname").permitAll()
                                 .requestMatchers("/posting/list","posting/detail/**").permitAll()
-                                .requestMatchers("comment/list").permitAll()
+                                .requestMatchers("comment/list/**").permitAll()
                                 .requestMatchers("/heart/anonymous/**").permitAll()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
