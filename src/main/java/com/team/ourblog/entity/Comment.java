@@ -7,7 +7,7 @@ import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Getter
@@ -27,7 +27,7 @@ public class Comment {
     private String reply;
 
     @CreatedDate
-    private String createdDate = LocalDateTime.now().plusHours(9).format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss"));
+    private String createdDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "POST_ID")
