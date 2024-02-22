@@ -20,7 +20,7 @@ public class CommentResponseDto {
         return CommentResponseDto.builder()
                 .commentId(comment.getId())
                 .reply(comment.getReply())
-                .createdDate(String.valueOf(comment.getCreatedDate()))
+                .createdDate(comment.getCreatedDate())
                 .author(comment.getMember().getNickname())
                 .imageUrl(comment.getMember().getImage().getUrl())
                 .email(comment.getMember().getEmail())
