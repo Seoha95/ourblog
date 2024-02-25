@@ -27,7 +27,7 @@ public class Category {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Posting> postings = new ArrayList<>();
 
