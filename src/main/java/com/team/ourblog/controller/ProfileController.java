@@ -62,7 +62,7 @@ public class ProfileController {
     @DeleteMapping("/member")
     public ResponseEntity<String> deleteMember(){
         Long memberId = SecurityUtil.getCurrentMemberId();
-        authService.withdraw(memberId);
+        authService.deleteUser(memberId);
         return ResponseEntity.status(HttpStatus.OK).body("delete success");
     }
 }

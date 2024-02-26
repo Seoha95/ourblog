@@ -96,8 +96,8 @@ public class AuthService {
         return tokenDto;
     }
 
-    // 회원탈퇴
-    public void withdraw(Long memberId) {
+    // 회원삭제
+    public void deleteUser(Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(
                 () -> new ResourceNotFoundException("Member", "Member Id", String.valueOf(memberId))
         );

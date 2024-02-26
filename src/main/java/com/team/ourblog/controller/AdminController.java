@@ -31,7 +31,7 @@ public class AdminController {
     @DeleteMapping("/memberDelete/{memberId}")
     public ResponseEntity<String> deleteUser(@PathVariable Long memberId) {
         //memberService.deleteUser(memberId);
-        authService.withdraw(memberId);
+        authService.deleteUser(memberId);
 
         return ResponseEntity.status(HttpStatus.OK).body("delete success");
     }
