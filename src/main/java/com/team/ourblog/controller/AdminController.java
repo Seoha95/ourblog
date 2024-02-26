@@ -2,6 +2,7 @@ package com.team.ourblog.controller;
 
 
 import com.team.ourblog.dto.response.admin.UserResponseDto;
+import com.team.ourblog.service.AuthService;
 import com.team.ourblog.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import java.util.List;
 public class AdminController {
 
     private final MemberService memberService;
+    private final AuthService authService;
 
     // 관리자가 전체 회원정보 조회
     @GetMapping("/members")
@@ -28,7 +30,8 @@ public class AdminController {
     // 관리자가 회원의 정보를 삭제
     @DeleteMapping("/memberDelete/{memberId}")
     public ResponseEntity<String> deleteUser(@PathVariable Long memberId) {
-        memberService.deleteUser(memberId);
+        //memberService.deleteUser(memberId);
+        authService.withdraw(memberId);
 
         return ResponseEntity.status(HttpStatus.OK).body("delete success");
     }
