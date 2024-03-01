@@ -28,7 +28,8 @@ public class Posting {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false, columnDefinition = "LONGTEXT")
+    @Lob
+    @Column(nullable = false)
     private String content;
 
     @CreatedDate
