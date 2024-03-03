@@ -12,6 +12,8 @@ import com.team.ourblog.repository.MemberRepository;
 import com.team.ourblog.repository.PostingRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,11 +27,9 @@ public class PostingService {
     private final MemberRepository memberRepository;
 
     // 게시물 전체 목록보기
-    public List<PostingListResponseDto> getPostingList(){
-        List<Posting> postingList = postingRepository.findAllByOrderByCreatedDateDesc();
-        return postingList.stream()
-                .map(PostingListResponseDto::fromEntity)
-                .collect(Collectors.toList());
+    public Page<PostingListResponseDto> getPostingList(Pageable pageable){
+        Page<Posting> postings = postingRepository.findAll(pageable);
+        return postings.map(PostingListResponseDto::fromEntity);
     }
 
     // 로그인한 회원의 게시물 전체보기
@@ -40,11 +40,9 @@ public class PostingService {
                 .collect(Collectors.toList());
     }
     // 게시물 제목 또는 내용 또는 닉네임으로 검색하기
-    public List<PostingListResponseDto> getPostingList(String searchText){
-        List<Posting> postingList = postingRepository.findByTitleContainingOrContentContainingOrNickNameContainingOrderByCreatedDateDesc(searchText, searchText, searchText);
-        return postingList.stream()
-                .map(PostingListResponseDto::fromEntity)
-                .collect(Collectors.toList());
+    public Page<PostingListResponseDto> getPostingList(String searchText, Pageable pageable){
+        Page<Posting> postings = postingRepository.findByTitleContainingOrContentContainingOrNickNameContaining(searchText, searchText, searchText, pageable);
+        return postings.map(PostingListResponseDto::fromEntity);
     }
     // 카테고리별로 게시물 조회
     public List<PostingListResponseDto> getPostingListCategory(Long categoryId){
