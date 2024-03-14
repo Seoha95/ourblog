@@ -1,7 +1,7 @@
 package com.team.ourblog.dto.request.posting;
 
 import com.team.ourblog.entity.Posting;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Setter
@@ -10,16 +10,16 @@ import lombok.*;
 @AllArgsConstructor
 public class PostingRequestDto {
 
-    @NotNull
+    @NotBlank
     private String nickname;
 
-    @NotNull
+    @NotBlank
     private String title;
 
-    @NotNull
+    @NotBlank
     private String content;
 
-    @NotNull
+    @NotBlank
     private Long categoryId;
 
 
