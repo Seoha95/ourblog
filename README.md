@@ -169,5 +169,4 @@
 그러나 이렇게 협업을 통해서 변수 하나도 변경할 때에도 프론트 쪽에 영향이 간다는 것을 알 수 있게 되었습니다.   
 그리고 Security Config에서 api url이 /posting/detail/{postId}로 받아야 하는 곳은 .requestMatchers("/posting/list","posting/detail/**").permitAll() {postId}로 들어오는 자리는    
 /**로 코드를 적어줘야 제대로 돌아간다는 것을 알게 되었습니다. 이 프로젝트를 통해서 협업을 할 때는 팀원과의 소통이 중요하다는 것을 배울 수 있었습니다.        
-적어야 프로그램이 제대로 돌아간다는 것을 알게 되었습니다.   
 
