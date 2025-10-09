@@ -96,32 +96,6 @@
 ### 이슈: **검색이 동작하지 않음**  
 초기 구현에서 `searchText` 하나만 받아 **제목/내용/닉네임**에 동시에 적용했지만, 메서드 시그니처가 일치하지 않아 검색이 실패.  
 각 필드에 **독립적으로** 검색어를 전달하도록 **파라미터를 3개**로 분리하여 해결.
-
-<details>
-<summary><b>기존 코드</b></summary>
-
-```java
-// PostingRepository.java
-public interface PostingRepository extends JpaRepository<Posting, Long> {
-    List<Posting> findByTitleContainingOrContentContainingOrNickNameContainingOrderByCreateDateDesc(String searchText);
-}
-
-// PostingService.java
-public List<PostingListResponseDto> getPostingList(String searchText){
-    List<Posting> postingList =
-        postingRepository.findByTitleContainingOrContentContainingOrNickNameContainingOrderByCreateDateDesc(searchText);
-
-    return postingList.stream()
-            .map(PostingListResponseDto::fromEntity)
-            .collect(Collectors.toList());
-}
-
-</details>   
-
-## 🧪 핵심 트러블슈팅   
-### 이슈: **검색이 동작하지 않음**   
-초기 구현에서 `searchText` 하나만 받아 **제목/내용/닉네임**에 동시에 적용했지만, 메서드 시그니처가 일치하지 않아 검색이 실패.   
-각 필드에 **독립적으로** 검색어를 전달하도록 **파라미터를 3개**로 분리하여 해결.   
    
 <details>      
 <summary>기존코드</summary>      
@@ -161,6 +135,7 @@ public List<PostingListResponseDto> getPostingList(String searchText){
                 .collect(Collectors.toList()); 
 </code>    
 </pre>   
+
 </details>   
 </br>    
 
