@@ -1,129 +1,128 @@
-## :pushpin: ourblog   
->개발자를 위한 블로그    
-   
-</br>   
+<h1 align="center">📝 ourblog — 블로그 플랫폼 </h1>
 
-### 1.제작기간&참여 인원   
-* 2024.01.01 ~ 2024.02.09   
-* 팀 프로젝트(2명)   
+<p align="center">
+  <a href="#-프로젝트-개요">프로젝트 개요</a> •
+  <a href="#-기간--팀-구성">기간 & 팀 구성</a> •
+  <a href="#-tech-stack">Tech Stack</a> •
+  <a href="#-api-설계">API 설계</a> •
+  <a href="#-실행-화면">실행 화면</a> •
+  <a href="#-내-담당-기능">내 담당 기능</a> •
+  <a href="#-핵심-트러블슈팅">핵심 트러블슈팅</a> •
+  <a href="#-느낀점--회고">느낀점 / 회고</a>
+</p>
 
-</br>
+<p align="center">
+  <img alt="Java" src="https://img.shields.io/badge/Java-17-007396?logo=openjdk&logoColor=white">
+  <img alt="Spring" src="https://img.shields.io/badge/Spring%20Data%20JPA-3.x-6DB33F?logo=spring&logoColor=white">
+  <img alt="Spring Security" src="https://img.shields.io/badge/Spring%20Security-6.x-2c3e50">
+  <img alt="JWT" src="https://img.shields.io/badge/JWT-Auth-000000?logo=jsonwebtokens&logoColor=white">
+  <img alt="MySQL" src="https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white">
+</p>
 
-### 2.사용기술   
-* JAVA17   
-* MySQL   
-* spring Security   
-* JWT   
-* Spring Data Jpa   
-       
- </br>     
+---
 
- ### 3. API 설계 
- ---   
- ![Member](https://github.com/Seoha95/ourblog/assets/107228582/4b4056ba-bb1e-42c5-af66-823252da630d)   
+## 📌 프로젝트 개요
+**ourblog**는 개발자를 위한 블로그 서비스입니다.  
+회원 인증(JWT), 게시글/댓글/좋아요, 카테고리, 검색, 관리자 기능을 제공하여  
+개발 학습·공유를 위한 **가볍고 직관적인** 글쓰기 환경을 지향합니다.
+
+---
+
+## ⏱ 기간 & 팀 구성
+- **제작 기간:** 2024.01.01 ~ 2024.02.09  
+- **참여 인원:** **2명** (팀 프로젝트)  
+  - **Backend:** 본인 — 인증/인가, 도메인/레포지토리/서비스, 검색·카테고리·관리자 기능  
+  - **Frontend:** 팀원 ([frontend-Repository](https://github.com/kimnya/ourblog)) — 화면 설계, UI/UX, API 연동
+
+---
+
+## 🧰 Tech Stack
+| 분류 | 기술 |
+|---|---|
+| Language | **Java** |
+| Backend | **JPA**, **Spring Security** |
+| Auth | **JWT** |
+| DB | **MySQL** |
+
+---
+
+## 🗂 API 설계
+> 주요 도메인(회원/관리자/프로필/게시글/좋아요/댓글/카테고리)의 엔드포인트 구조
+
+![Member](https://github.com/Seoha95/ourblog/assets/107228582/4b4056ba-bb1e-42c5-af66-823252da630d)
 ![Admin](https://github.com/Seoha95/ourblog/assets/107228582/4e0ae996-98e3-4bb6-a852-05b56d8881c4)
-![Profile](https://github.com/Seoha95/ourblog/assets/107228582/d9071551-c6a4-420f-930e-2c5a2c7cbd69)   
+![Profile](https://github.com/Seoha95/ourblog/assets/107228582/d9071551-c6a4-420f-930e-2c5a2c7cbd69)
 ![Posting](https://github.com/Seoha95/ourblog/assets/107228582/fb06c28c-c29a-4bdd-98e1-9cb257cadaf9)
-![Heart](https://github.com/Seoha95/ourblog/assets/107228582/00713183-ee70-41ae-b592-9c8019c93b23)   
-![Comment](https://github.com/Seoha95/ourblog/assets/107228582/acd8a181-89f0-4569-924c-e0ad96319d9a)   
+![Heart](https://github.com/Seoha95/ourblog/assets/107228582/00713183-ee70-41ae-b592-9c8019c93b23)
+![Comment](https://github.com/Seoha95/ourblog/assets/107228582/acd8a181-89f0-4569-924c-e0ad96319d9a)
 ![Category](https://github.com/Seoha95/ourblog/assets/107228582/767dc16f-a054-4eaf-8e46-fd7a4704c88a)
 
-</br>   
+---
 
-### 4. 실행화면   
-#### 로그인 화면   
-![로그인](https://github.com/Seoha95/ourblog/assets/107228582/ac07562d-29f9-493c-8ea8-83140e1d281c)    
-#### 회원가입 화면   
-![회원가입](https://github.com/Seoha95/ourblog/assets/107228582/e903a5e4-36ea-47ac-a358-bda03eb50a08)     
-#### 전체 게시물 보기   
-![전체게시물](https://github.com/Seoha95/ourblog/assets/107228582/424bb69d-8c04-4b37-9837-e91af7fd1de6)    
-#### 나의 블로그 화면   
-![나의 블로그](https://github.com/Seoha95/ourblog/assets/107228582/600107b9-d8d5-48e2-a24c-ba0883d9494f)     
-#### 그림자 효과   
-![그림자효과](https://github.com/Seoha95/ourblog/assets/107228582/4e903ed5-180e-4c0c-8ea2-cd820be611e1)      
-#### 4-6. 게시물 작성 화면   
-![게시물 작성 화면](https://github.com/Seoha95/ourblog/assets/107228582/bf9221d3-570b-4184-a3d4-d9ed0b9e917b)    
-#### 댓글작성 화면   
-![댓글작성](https://github.com/Seoha95/ourblog/assets/107228582/6b9f8374-c7df-44e4-b650-5470c00fb645)   
-#### 게시물 상세보기  
-![상세보기](https://github.com/Seoha95/ourblog/assets/107228582/40f44fee-2c0a-46d9-99dc-60ad051c75aa)  
-#### 마이페이지 화면   
-![마이페이지](https://github.com/Seoha95/ourblog/assets/107228582/90c97972-fdb1-4dd2-b892-4c5f218c24d6)   
-#### 관리자 페이지 화면   
-![관리자 페이지](https://github.com/Seoha95/ourblog/assets/107228582/a1edcd45-cdf7-4c25-b8ae-0b3ab625a3a4)   
+## 🖥 실행 화면
+- **로그인**  
+  ![로그인](https://github.com/Seoha95/ourblog/assets/107228582/ac07562d-29f9-493c-8ea8-83140e1d281c)
+- **회원가입**  
+  ![회원가입](https://github.com/Seoha95/ourblog/assets/107228582/e903a5e4-36ea-47ac-a358-bda03eb50a08)
+- **전체 게시물 보기**  
+  ![전체게시물](https://github.com/Seoha95/ourblog/assets/107228582/424bb69d-8c04-4b37-9837-e91af7fd1de6)
+- **나의 블로그**  
+  ![나의 블로그](https://github.com/Seoha95/ourblog/assets/107228582/600107b9-d8d5-48e2-a24c-ba0883d9494f)
+- **그림자 효과**  
+  ![그림자효과](https://github.com/Seoha95/ourblog/assets/107228582/4e903ed5-180e-4c0c-8ea2-cd820be611e1)
+- **게시물 작성**  
+  ![게시물 작성 화면](https://github.com/Seoha95/ourblog/assets/107228582/bf9221d3-570b-4184-a3d4-d9ed0b9e917b)
+- **댓글 작성**  
+  ![댓글작성](https://github.com/Seoha95/ourblog/assets/107228582/6b9f8374-c7df-44e4-b650-5470c00fb645)
+- **게시물 상세보기**  
+  ![상세보기](https://github.com/Seoha95/ourblog/assets/107228582/40f44fee-2c0a-46d9-99dc-60ad051c75aa)
+- **마이페이지**  
+  ![마이페이지](https://github.com/Seoha95/ourblog/assets/107228582/90c97972-fdb1-4dd2-b892-4c5f218c24d6)
+- **관리자 페이지**  
+  ![관리자 페이지](https://github.com/Seoha95/ourblog/assets/107228582/a1edcd45-cdf7-4c25-b8ae-0b3ab625a3a4)
 
-</br>      
+---
 
-### 5.핵심기능   
-  * 로그인 시 토큰 발급 : 사용자가 로그인을 하면 토큰을 발급 해줍니다.   
-  * 회원 정보 수정 : 마이페이지에서 정보를 수정하거나 회원탈퇴가 가능합니다. 
-  * 게시물 기능 : 게시물을 조회, 작성, 수정, 삭제가 가능합니다. 
-  * 댓글 기능 : 게시물에 댓글 작성, 조회, 수정, 삭제가 가능합니다. 
-  * 좋아요 기능 : 게시물을 좋아요하거나 좋아요 취소를 할 수 있습니다. 
-  * 검색 기능 : 사용자가 원하는 게시물을 검색하면 조회를 해줍니다.
-  * 카테고리 기능 : 사용자가 카테고리를 추가, 수정, 삭제를 할 수 있고, 게시물을 카테고리별로 조회할 수 있습니다.
-  * 관리자 기능 : 관리자는 회원의 정보를 조회 및 삭제를 할 수 있습니다.     
+## 👤 내 담당 기능
+- **인증/인가**: 로그인 시 **Access/Refresh 토큰** 발급 및 갱신, 보호 리소스 접근 제어  
+- **도메인 로직**: 게시글/댓글/좋아요/카테고리 서비스 구현  
+- **검색**: **제목/내용/닉네임** 기준 통합 검색 (정렬·페이지네이션 적용)  
+- **관리자 기능**: 회원 정보 조회/삭제 API 설계 및 권한 정책 설정  
+- **보안/설정**: Spring Security 경로 권한(permitAll/인증 필요) 및 예외 처리 규약 정리
+
+---
+
+## 🧪 핵심 트러블슈팅
+### 이슈: **검색이 동작하지 않음**  
+초기 구현에서 `searchText` 하나만 받아 **제목/내용/닉네임**에 동시에 적용했지만, 메서드 시그니처가 일치하지 않아 검색이 실패.  
+각 필드에 **독립적으로** 검색어를 전달하도록 **파라미터를 3개**로 분리하여 해결.
 
 <details>
-<summary>핵심기능설명펼치기</summary>   
+<summary><b>기존 코드</b></summary>
 
-#### 5-1. 로그인 시 토큰 발급
-* 로그인 기능 📍[코드확인](https://github.com/Seoha95/ourblog/blob/a60351ce53debd4ebff276e1bd8da6208081459d/src/main/java/com/team/ourblog/service/AuthService.java#L51-L71)   
-  * 사용자가 로그인시 어세스토큰 생성과 리프레쉬 토큰 생성 후 DB에 저장합니다.
-#### 5-2. 회원 정보 수정 
-* 회원 정보 수정 📍[코드확인](https://github.com/Seoha95/ourblog/blob/a60351ce53debd4ebff276e1bd8da6208081459d/src/main/java/com/team/ourblog/service/ProfileService.java#L19-L77)   
-    * 프로필 이미지, 닉네임, 이메일, 비밀번호를 수정할 수 있습니다.
-* 회원 탈퇴 📍[코드확인](https://github.com/Seoha95/ourblog/blob/9cf13fbbbc2b31ef474f6c1894a0ba55f8e01a50/src/main/java/com/team/ourblog/service/AuthService.java#L102-L110)  
-    * 회원은 마이페이지에서 회원탈퇴를 할 수 있습니다.
-#### 5-3. 게시물 기능 
-* 전체 게시물 조회 기능 📍[코드확인](https://github.com/Seoha95/ourblog/blob/a60351ce53debd4ebff276e1bd8da6208081459d/src/main/java/com/team/ourblog/service/PostingService.java#L27-L33)   
-    * 회원과 비회원 모두 메인페이지에서 전체 게시물을 볼 수 있습니다. 
-* 내 블로그 게시물 조회 기능 📍[코드확인](https://github.com/Seoha95/ourblog/blob/a60351ce53debd4ebff276e1bd8da6208081459d/src/main/java/com/team/ourblog/service/PostingService.java#L35-L41)  
-    * 내블로그를 클릭하면 로그인한 사용자의 포스팅한 게시물만 조회를 합니다.
-* 게시물 작성 기능 📍[코드확인](https://github.com/Seoha95/ourblog/blob/a60351ce53debd4ebff276e1bd8da6208081459d/src/main/java/com/team/ourblog/service/PostingService.java#L57-L69)  
-    * 회원만이 게시물을 작성할 수 있습니다. 
-* 게시물 수정 기능 📍[코드확인](https://github.com/Seoha95/ourblog/blob/a60351ce53debd4ebff276e1bd8da6208081459d/src/main/java/com/team/ourblog/service/PostingService.java#L78-L86) 
-    * 게시물을 작성한 사용자가 게시물을 수정할 수 있습니다. 
-* 게시물 삭제 기능 📍[코드확인](https://github.com/Seoha95/ourblog/blob/a60351ce53debd4ebff276e1bd8da6208081459d/src/main/java/com/team/ourblog/service/PostingService.java#L88-L91) 
-    * 게시물을 작성한 사용자가 게시물을 삭제할 수 있습니다.
-#### 5-4. 댓글 기능 
-* 댓글 조회 기능 📍[코드확인](https://github.com/Seoha95/ourblog/blob/a60351ce53debd4ebff276e1bd8da6208081459d/src/main/java/com/team/ourblog/service/CommentService.java#L29-L35) 
-    * 회원과 비회원 모두 게시물에 대한 댓글 리스트를 볼 수 있습니다.
-* 댓글 작성 기능 📍[코드확인](https://github.com/Seoha95/ourblog/blob/a60351ce53debd4ebff276e1bd8da6208081459d/src/main/java/com/team/ourblog/service/CommentService.java#L37-L54) 
-    * 회원만 게시물에 댓글을 작성할 수 있습니다. 
-* 댓글 삭제 기능 📍[코드확인](https://github.com/Seoha95/ourblog/blob/a60351ce53debd4ebff276e1bd8da6208081459d/src/main/java/com/team/ourblog/service/CommentService.java#L56-L67) 
-    * 게시물에 댓글을 작성한 작성자만 삭제할 수 있습니다. 
-#### 5-5. 좋아요 기능 
-* 게시물 좋아요 기능 📍[코드확인](https://github.com/Seoha95/ourblog/blob/a60351ce53debd4ebff276e1bd8da6208081459d/src/main/java/com/team/ourblog/service/HeartService.java#L26-L46) 
-    * 게시물 상세보기에 들어가서 회원만 좋아요를 누를 수 있습니다. 
-* 게시물 좋아요 취소 기능 📍[코드확인](https://github.com/Seoha95/ourblog/blob/a60351ce53debd4ebff276e1bd8da6208081459d/src/main/java/com/team/ourblog/service/HeartService.java#L48-L64) 
-    * 게시물 상세보기에 들어가서 좋아요를 눌렀던 회원이 좋아요 취소를 할 수 있습니다. 
-#### 5-6. 검색 기능 
-* 게시물 검색 기능 📍[코드확인](https://github.com/Seoha95/ourblog/blob/a60351ce53debd4ebff276e1bd8da6208081459d/src/main/java/com/team/ourblog/service/PostingService.java#L42-L48) 
-    * 제목, 내용, 닉네임 중에서 한 글자만 검색해도 연관된 모든 게시물이 조회될 수 있게 구현했습니다.
-#### 5-7 카테고리 기능
-* 카테고리 기본 4개 생성 기능 📍[코드확인](https://github.com/Seoha95/ourblog/blob/94c313fbbdd3c273c04f4fdc667031519ee0204b/src/main/java/com/team/ourblog/service/MemberService.java#L65-L78)
-   * 회원가입시 기본적으로 4개의 카테고리가 생성되도록 구현 했습니다.
-* 카테고리 추가 기능 📍[코드확인](https://github.com/Seoha95/ourblog/blob/94c313fbbdd3c273c04f4fdc667031519ee0204b/src/main/java/com/team/ourblog/service/CategoryService.java#L22-L33)
-   * 사용자가 카테고리를 추가해서 원하는 이름으로 저장할 수 있습니다.   
-* 카테고리 수정 기능 📍[코드확인](https://github.com/Seoha95/ourblog/blob/94c313fbbdd3c273c04f4fdc667031519ee0204b/src/main/java/com/team/ourblog/service/CategoryService.java#L35-L44)
-   * 사용자가 기본적으로 제공되는 카테고리나 새로 추가한 카테고리의 이름을 수정할 수 있습니다.    
-* 카테고리 삭제 기능 📍[코드확인](https://github.com/Seoha95/ourblog/blob/94c313fbbdd3c273c04f4fdc667031519ee0204b/src/main/java/com/team/ourblog/service/CategoryService.java#L46-L50)
-   * 사용자가 선택한 카테고리를 삭제할 수 있습니다.    
-#### 5-7. 관리자 기능 
-* 회원의 정보를 전체 조회 기능 📍[코드확인](https://github.com/Seoha95/ourblog/blob/a60351ce53debd4ebff276e1bd8da6208081459d/src/main/java/com/team/ourblog/service/MemberService.java#L80-L85)
-   * 관리자가 전체 회원의 정보를 볼 수 있습니다.     
-* 회원의 정보 관리 기능 📍[코드확인](https://github.com/Seoha95/ourblog/blob/a60351ce53debd4ebff276e1bd8da6208081459d/src/main/java/com/team/ourblog/service/MemberService.java#L86-L92) 
-    * 관리자의 권한으로 회원의 정보를 삭제할 수 있습니다.
-</br>
+```java
+// PostingRepository.java
+public interface PostingRepository extends JpaRepository<Posting, Long> {
+    List<Posting> findByTitleContainingOrContentContainingOrNickNameContainingOrderByCreateDateDesc(String searchText);
+}
+
+// PostingService.java
+public List<PostingListResponseDto> getPostingList(String searchText){
+    List<Posting> postingList =
+        postingRepository.findByTitleContainingOrContentContainingOrNickNameContainingOrderByCreateDateDesc(searchText);
+
+    return postingList.stream()
+            .map(PostingListResponseDto::fromEntity)
+            .collect(Collectors.toList());
+}
+
 </details>   
 
-### 6.핵심 트러블 슈팅
-#### 6-1. 검색이 안되는 버그   
-제목, 내용, 닉네임으로 게시물을 검색할 수 있도록 구현하였으나 검색이 되지 않는 버그가 발생했습니다.    
-코드를 보완하여 검색어가 각각 제목, 내용, 닉네임 중 어느 곳에 포함되어 있는지 정확히 필터링할 수 있도록 하였습니다.   
-초기에는 searchText 매개변수를 하나만 사용하여 문제가 발생했지만, 검색어가 각 필드에 독립적으로 적용되어야 함을 인지하고   
-매개변수를 3개로 변경하여 작성하였습니다. 이로 인해 정확한 검색이 가능해졌습니다.   
+## 🧪 핵심 트러블슈팅   
+### 이슈: **검색이 동작하지 않음**   
+초기 구현에서 `searchText` 하나만 받아 **제목/내용/닉네임**에 동시에 적용했지만, 메서드 시그니처가 일치하지 않아 검색이 실패.   
+각 필드에 **독립적으로** 검색어를 전달하도록 **파라미터를 3개**로 분리하여 해결.   
+   
 <details>      
 <summary>기존코드</summary>      
 <pre>
@@ -163,11 +162,12 @@
 </code>    
 </pre>   
 </details>   
-</br>
+</br>    
 
-### 6. 느낀점   
-처음으로 프론트엔드 개발자와의 협업이라서 서로 다른 포트를 사용하고 요청받은 데이터를 통해서 데이터를 응답하는 과정이 어려웠습니다.    
-그러나 이렇게 협업을 통해서 변수 하나도 변경할 때에도 프론트 쪽에 영향이 간다는 것을 알 수 있게 되었습니다.   
-그리고 Security Config에서 api url이 /posting/detail/{postId}로 받아야 하는 곳은 .requestMatchers("/posting/list","posting/detail/**").permitAll() {postId}로 들어오는 자리는    
-/**로 코드를 적어줘야 제대로 돌아간다는 것을 알게 되었습니다. 이 프로젝트를 통해서 협업을 할 때는 팀원과의 소통이 중요하다는 것을 배울 수 있었습니다.        
+### 💡 느낀점 / 회고
+
+- 협업의 민감도: 프론트/백엔드가 포트 분리된 환경에서, 필드명 하나만 바뀌어도 상호 영향이 큼을 체감했습니다.
+- 보안 설정 학습: Spring Security에서 상세 페이지 /posting/detail/{postId} 접근 허용은
+"/posting/list", "/posting/detail/**"처럼 **와일드카드 /****를 사용해야 함을 이해했습니다.
+- 케이스 합의의 가치: 인증/인가, 공개 엔드포인트, 에러 응답 규약 등을 사전에 문서화하면 디버깅 비용이 크게 줄어듭니다.
 
